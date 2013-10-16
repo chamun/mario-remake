@@ -3,7 +3,7 @@ LIBS= -L/usr/local/lib -lsfml-graphics -lsfml-window -lsfml-system
 FLAGS= -std=c++11 -g
 CXX= g++-4.7 $(FLAGS)
 
-OBJS= main.o Game.o PlayState.o Mario.o InputManager.o \
+OBJS= main.o Game.o PlayState.o InputManager.o \
       Sprite.o TextureManager.o pugixml.o MapLoaderPrivate.o \
 	  MapLoaderPublic.o QuadTreeNode.o
 
@@ -21,9 +21,6 @@ PlayState.o: PlayState.cpp include/PlayState.h
 
 InputManager.o : InputManager.cpp include/InputManager.h
 	$(CXX) -c InputManager.cpp
-
-Mario.o : Mario.cpp include/Mario.h
-	$(CXX) -c Mario.cpp
 
 Sprite.o : Sprite.cpp include/Sprite.h
 	$(CXX) -c Sprite.cpp

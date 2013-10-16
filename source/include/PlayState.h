@@ -13,7 +13,6 @@
 #include "GameState.h"
 #include "Sprite.h"
 #include "InputManager.h"
-#include "Mario.h"
 #include "tmxloader/MapLoader.h"
 
 class PlayState : public cgf::GameState
@@ -41,13 +40,10 @@ class PlayState : public cgf::GameState
     private:
 
     static PlayState m_PlayState;
-	void centerMapOnPlayer(sf::RenderWindow* screen);
 
     int x, y;
     int dirx, diry;
-    Mario *player;
     cgf::InputManager* im;
-	tmx::MapLoader* map;
 };
 
 #endif

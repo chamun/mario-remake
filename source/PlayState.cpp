@@ -12,7 +12,6 @@
 #include "include/Game.h"
 #include "include/PlayState.h"
 #include "include/InputManager.h"
-#include "include/Mario.h"
 
 PlayState PlayState::m_PlayState;
 
@@ -20,7 +19,6 @@ using namespace std;
 
 void PlayState::init()
 {
-	player = new Mario(0, 16 * 32);
 
     dirx = 0; // direção do sprite: para a direita (1), esquerda (-1)
     diry = 0; // baixo (1), cima (-1)
@@ -39,13 +37,10 @@ void PlayState::init()
 
 
     cout << "PlayState: Init" << endl;
-	map = new tmx::MapLoader("data/maps");
-	map->Load("map1.tmx");
 }
 
 void PlayState::cleanup()
 {
-	delete player;
     cout << "PlayState: Clean" << endl;
 }
 
@@ -89,42 +84,9 @@ void PlayState::handleEvents(cgf::Game* game)
 
 void PlayState::update(cgf::Game* game)
 {
-	player->setXspeed(dirx*100);
-    player->update(game->getUpdateInterval());
-	centerMapOnPlayer(game->getScreen());
 }
 
 void PlayState::draw(cgf::Game* game)
 {
     sf::RenderWindow* screen = game->getScreen();
-    //screen->draw(player);
-	map->Draw(*screen);
-	player->draw(screen);
-}
-
-void PlayState::centerMapOnPlayer(sf::RenderWindow* screen)
-{
-    sf::View view = screen->getView();
-    sf::Vector2f viewsize = view.getSize();
-    sf::Vector2u mapsize = map->GetMapSize();
-    viewsize.x /= 2;
-    viewsize.y /= 2;
-    sf::Vector2f pos = player->getPosition();
-
-    float panX = viewsize.x; // minimum pan
-    if(pos.x >= viewsize.x)
-        panX = pos.x;
-
-    if(panX >= mapsize.x - viewsize.x)
-        panX = mapsize.x - viewsize.x;
-
-    float panY = viewsize.y; // minimum pan
-    if(pos.y >= viewsize.y)
-        panY = pos.y;
-
-    if(panY >= mapsize.y - viewsize.y)
-        panY = mapsize.y - viewsize.y;
-
-    view.setCenter(sf::Vector2f(panX,panY));
-    screen->setView(view);
 }
