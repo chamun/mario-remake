@@ -25,16 +25,13 @@ void PlayState::init()
 
     im = cgf::InputManager::instance();
 
-    im->addKeyInput("left", sf::Keyboard::A);
+    im->addKeyInput("left",  sf::Keyboard::A);
     im->addKeyInput("right", sf::Keyboard::D);
-    im->addKeyInput("up", sf::Keyboard::W);
-    im->addKeyInput("down", sf::Keyboard::S);
-    im->addKeyInput("run", sf::Keyboard::J);
-    im->addKeyInput("jump", sf::Keyboard::K);
-
-    im->addKeyInput("quit", sf::Keyboard::Escape);
-    im->addKeyInput("stats", sf::Keyboard::Space);
-
+    im->addKeyInput("up",    sf::Keyboard::W);
+    im->addKeyInput("down",  sf::Keyboard::S);
+    im->addKeyInput("run",   sf::Keyboard::J);
+    im->addKeyInput("jump",  sf::Keyboard::K);
+    im->addKeyInput("quit",  sf::Keyboard::Escape);
 
     cout << "PlayState: Init" << endl;
 }
@@ -63,23 +60,16 @@ void PlayState::handleEvents(cgf::Game* game)
     {
         if(event.type == sf::Event::Closed)
             game->quit();
+
+		if(event.type == sf::Event::KeyReleased) {
+			if (event.key.code == sf::Keyboard::Space)
+				game->toggleStats();
+		}
     }
-
-    dirx = diry = 0;
-
-    if(im->testEvent("left")) {
-        dirx = -1;
-	}
-	else
-    if(im->testEvent("right")){
-        dirx = 1;
-	}
 
     if(im->testEvent("quit"))
         game->quit();
 
-    if(im->testEvent("stats"))
-        game->toggleStats();
 }
 
 void PlayState::update(cgf::Game* game)
