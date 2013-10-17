@@ -3,7 +3,7 @@ LIBS= -L/usr/local/lib -lsfml-graphics -lsfml-window -lsfml-system
 FLAGS= -std=c++11 -g
 CXX= g++-4.7 $(FLAGS)
 
-OBJS= main.o Game.o PlayState.o InputManager.o \
+OBJS= main.o Game.o Player.o PlayState.o InputManager.o \
       Sprite.o TextureManager.o pugixml.o MapLoaderPrivate.o \
 	  MapLoaderPublic.o QuadTreeNode.o
 
@@ -39,6 +39,9 @@ MapLoaderPublic.o:	tmxloader/MapLoaderPublic.cpp
 
 QuadTreeNode.o:	tmxloader/MapLoaderPrivate.cpp
 	$(CXX) -c tmxloader/QuadTreeNode.cpp -Iinclude
+
+Player.o: Player.cpp include/Player.h
+	$(CXX) -c Player.cpp
 
 clean:
 	rm -f *.o
