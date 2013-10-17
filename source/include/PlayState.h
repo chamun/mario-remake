@@ -33,6 +33,7 @@ class PlayState : public cgf::GameState
     static PlayState* instance() { return &m_PlayState; }
 
     protected:
+	PlayState() {}
 
     private:
 
