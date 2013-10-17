@@ -43,6 +43,9 @@ void PlayState::init()
 	}
 	bg = new sf::Sprite(*tex);
 
+	/* Creates Player */
+	player = new Player(0, 352);
+
     cout << "PlayState: Init" << endl;
 }
 
@@ -50,6 +53,7 @@ void PlayState::cleanup()
 {
 	delete(map);
 	delete(bg);
+	delete(player);
     cout << "PlayState: Clean" << endl;
 }
 
@@ -93,4 +97,5 @@ void PlayState::draw(cgf::Game* game)
     sf::RenderWindow* screen = game->getScreen();
 	screen->draw(*bg);
 	map->Draw(*screen);
+	player->draw(screen);
 }
