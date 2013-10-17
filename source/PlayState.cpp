@@ -12,6 +12,7 @@
 #include "include/Game.h"
 #include "include/PlayState.h"
 #include "include/InputManager.h"
+#include "include/TextureManager.h"
 
 PlayState PlayState::m_PlayState;
 
@@ -19,9 +20,6 @@ using namespace std;
 
 void PlayState::init()
 {
-
-    dirx = 0; // direção do sprite: para a direita (1), esquerda (-1)
-    diry = 0; // baixo (1), cima (-1)
 
     im = cgf::InputManager::instance();
 
@@ -33,11 +31,25 @@ void PlayState::init()
     im->addKeyInput("jump",  sf::Keyboard::K);
     im->addKeyInput("quit",  sf::Keyboard::Escape);
 
+	map = new tmx::MapLoader("data/maps");
+	map->Load("simple.tmx");
+
+	/* Loading background */
+	cgf::TextureManager *tm = cgf::TextureManager::getInstance();
+	sf::Texture* tex = tm->findTexture((char *)"data/imgs/bg_simple.png");
+	if (tex == NULL) {
+		cout << "PlayState: Init: could not find the texture for the background." << endl;
+		exit(EXIT_FAILURE);
+	}
+	bg = new sf::Sprite(*tex);
+
     cout << "PlayState: Init" << endl;
 }
 
 void PlayState::cleanup()
 {
+	delete(map);
+	delete(bg);
     cout << "PlayState: Clean" << endl;
 }
 
@@ -79,4 +91,6 @@ void PlayState::update(cgf::Game* game)
 void PlayState::draw(cgf::Game* game)
 {
     sf::RenderWindow* screen = game->getScreen();
+	screen->draw(*bg);
+	map->Draw(*screen);
 }

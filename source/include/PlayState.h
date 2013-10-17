@@ -29,21 +29,17 @@ class PlayState : public cgf::GameState
     void update(cgf::Game* game);
     void draw(cgf::Game* game);
 
-    // Implement Singleton Pattern
-    static PlayState* instance()
-    {
-        return &m_PlayState;
-    }
+    /* Implement Singleton Pattern */
+    static PlayState* instance() { return &m_PlayState; }
 
     protected:
 
     private:
 
     static PlayState m_PlayState;
-
-    int x, y;
-    int dirx, diry;
     cgf::InputManager* im;
+	tmx::MapLoader* map;
+	sf::Sprite* bg;
 };
 
 #endif

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="40" height="30" tilewidth="16" tileheight="16">
+ <tileset firstgid="1" name="Floor" tilewidth="16" tileheight="16">
+  <image source="../tiles/floor.png" width="48" height="48"/>
+ </tileset>
+ <tileset firstgid="10" name="interactive" tilewidth="16" tileheight="16">
+  <image source="../tiles/interactive.png" width="32" height="64"/>
+ </tileset>
+ <layer name="Background" width="40" height="30">
+  <data encoding="base64" compression="zlib">
+   eJztzzEOwCAMBEEK4pD/fxiXKKLHSDPS1j63BgAAcI+ePUtx8P7utn11/X+vVNhn3+F9bzaK9mUTZtEFnA==
+  </data>
+ </layer>
+ <layer name="One-way" width="40" height="30">
+  <data encoding="base64" compression="zlib">
+   eJzt0jkKACAQBMFV//9nzVxMBQ+ogo4nmQgAAICpjGqqXdw/vc2e9Tsv5Uvwtw7KLwBj
+  </data>
+ </layer>
+ <layer name="Colision" width="40" height="30">
+  <data encoding="base64" compression="zlib">
+   eJztxUEJAAAIADETaP+2+rCEssFxEQAAAL/kVHsA7msNawAs
+  </data>
+ </layer>
+ <layer name="Collectable" width="40" height="30">
+  <data encoding="base64" compression="zlib">
+   eJztzjEOABAABEGEnv9/llIjNGhmkm0vFwIAAMA7cZQ23dIWzfKobPrp1796aRfgRAfXHADg
+  </data>
+ </layer>
+</map>
