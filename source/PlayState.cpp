@@ -86,10 +86,18 @@ void PlayState::handleEvents(cgf::Game* game)
     if(im->testEvent("quit"))
         game->quit();
 
+	player->setTargetSpeedX(0);
+
+	if(im->testEvent("left"))
+		player->setTargetSpeedX(-1);
+	if(im->testEvent("right"))
+		player->setTargetSpeedX(1);
+
 }
 
 void PlayState::update(cgf::Game* game)
 {
+	player->update();
 }
 
 void PlayState::draw(cgf::Game* game)

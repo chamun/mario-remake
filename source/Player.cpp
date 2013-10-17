@@ -16,3 +16,26 @@ void Player::draw(sf::RenderTarget *target)
 
 	target->draw(shape);
 }
+
+void Player::setTargetSpeedX(float x)
+{
+	targetSpeed.x = MAX_SPEED * signum(x);
+}
+
+void Player::update()
+{
+	sf::Vector2<float> direction = targetSpeed - currSpeed;
+	direction.x = signum(direction.x);
+	direction.y = signum(direction.y);
+	currSpeed += direction * ACCELERATION;
+	pos += currSpeed;
+}
+
+int Player::signum(float n)
+{
+	if (n < -ZERO_THRESHOLD)
+		return -1;
+	if (n > ZERO_THRESHOLD)
+		return 1;
+	return 0;
+}
