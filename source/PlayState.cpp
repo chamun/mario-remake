@@ -95,6 +95,8 @@ void PlayState::handleEvents(cgf::Game* game)
 	if(im->testEvent("right"))
 		player->setTargetSpeedX(1);
 
+	player->setJumpPressed(im->testEvent("jump"));
+
 }
 
 bool PlayState::isPlayerFalling() {

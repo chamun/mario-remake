@@ -25,6 +25,8 @@ class Player
 	void setPosition(float x, float y);
 	float getX() { return pos.x; }
 	float getY() { return pos.y; } 
+	
+	void setJumpPressed(bool value); 
 
     private:
 
@@ -36,6 +38,9 @@ class Player
 	sf::Vector2<float> targetSpeed = sf::Vector2<float>(0, 0);
 	sf::Vector2<float> currSpeed = sf::Vector2<float>(0, 0);
 	int signum(float n);
+
+	bool jumpPressed;
+	bool canJump;
 };
 
 #endif

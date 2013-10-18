@@ -29,8 +29,19 @@ void Player::setTargetSpeedX(float x)
 	targetSpeed.x = MAX_SPEED * signum(x);
 }
 
+void Player::setJumpPressed(bool value) { 
+	jumpPressed = value; 
+	if(value)
+		printf("setJumpPressed: %f\n", currSpeed.y);
+}
+
 void Player::update()
 {
+	if(canJump && jumpPressed) {
+		currSpeed.y = - TERMINAL_SPEED;
+		canJump = false;
+	}
+
 	sf::Vector2<float> direction = targetSpeed - currSpeed;
 	direction.x = signum(direction.x);
 	direction.y = signum(direction.y);
@@ -40,11 +51,9 @@ void Player::update()
 	if(signum(diff.x) != direction.x) currSpeed.x = targetSpeed.x;
 	if(signum(diff.y) != direction.y) currSpeed.y = targetSpeed.y;
 
-	/*
-	currSpeed = ACCELERATION * targetSpeed + (1 - ACCELERATION) * currSpeed;
-	if (fabs(currSpeed.x) < ZERO_THRESHOLD) currSpeed.x = 0;
-	if (fabs(currSpeed.y) < ZERO_THRESHOLD) currSpeed.y = 0;
-	*/
+
+	if (currSpeed.y == 0 && !jumpPressed)
+		canJump = true;
 
 	pos += currSpeed;
 }
@@ -53,8 +62,10 @@ void Player::setFalling(bool falling)
 {
 	if(falling)
 		targetSpeed.y = TERMINAL_SPEED;
-	else
+	else {
 		targetSpeed.y = 0;
+		currSpeed.y = 0;
+	}
 }
 
 int Player::signum(float n)
