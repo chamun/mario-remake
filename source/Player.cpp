@@ -26,13 +26,18 @@ void Player::setPosition(float x, float y)
 
 void Player::setTargetSpeedX(float x)
 {
-	targetSpeed.x = MAX_SPEED * signum(x);
+	float speed = MAX_SPEED;
+	if (isRunning)
+		speed = MAX_SPEED_RUNNING;
+	targetSpeed.x = speed * signum(x);
 }
 
 void Player::setJumpPressed(bool value) { 
 	jumpPressed = value; 
-	if(value)
-		printf("setJumpPressed: %f\n", currSpeed.y);
+}
+
+void Player::setRunning(bool value) { 
+	isRunning = value; 
 }
 
 void Player::update()

@@ -46,7 +46,7 @@ void PlayState::init()
 	bg = new sf::Sprite(*tex);
 
 	/* Creates Player */
-	player = new Player(200, 100);
+	player = new Player(0, FLOOR);
 
     cout << "PlayState: Init" << endl;
 }
@@ -96,6 +96,7 @@ void PlayState::handleEvents(cgf::Game* game)
 		player->setTargetSpeedX(1);
 
 	player->setJumpPressed(im->testEvent("jump"));
+	player->setRunning(im->testEvent("run"));
 
 }
 

@@ -27,12 +27,14 @@ class Player
 	float getY() { return pos.y; } 
 	
 	void setJumpPressed(bool value); 
+	void setRunning(bool value); 
 
     private:
 
 	#define MAX_SPEED 2.0f
-	#define ACCELERATION 0.4f
-	#define TERMINAL_SPEED 5.f
+	#define MAX_SPEED_RUNNING 5.0f
+	#define ACCELERATION 0.3f
+	#define TERMINAL_SPEED 4.5f
 
 	sf::Vector2<float> pos;
 	sf::Vector2<float> targetSpeed = sf::Vector2<float>(0, 0);
@@ -41,6 +43,8 @@ class Player
 
 	bool jumpPressed;
 	bool canJump;
+
+	bool isRunning;
 };
 
 #endif
