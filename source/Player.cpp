@@ -1,5 +1,6 @@
 #include "include/Player.h"
 #include <SFML/Graphics.hpp>
+#include <cmath>
 
 Player::Player(float x, float y) 
 {
@@ -17,6 +18,12 @@ void Player::draw(sf::RenderTarget *target)
 	target->draw(shape);
 }
 
+void Player::setPosition(float x, float y)
+{
+	pos.x = x;
+	pos.y = y;
+}
+
 void Player::setTargetSpeedX(float x)
 {
 	targetSpeed.x = MAX_SPEED * signum(x);
@@ -28,7 +35,26 @@ void Player::update()
 	direction.x = signum(direction.x);
 	direction.y = signum(direction.y);
 	currSpeed += direction * ACCELERATION;
+	sf::Vector2<float> diff = targetSpeed - currSpeed;
+
+	if(signum(diff.x) != direction.x) currSpeed.x = targetSpeed.x;
+	if(signum(diff.y) != direction.y) currSpeed.y = targetSpeed.y;
+
+	/*
+	currSpeed = ACCELERATION * targetSpeed + (1 - ACCELERATION) * currSpeed;
+	if (fabs(currSpeed.x) < ZERO_THRESHOLD) currSpeed.x = 0;
+	if (fabs(currSpeed.y) < ZERO_THRESHOLD) currSpeed.y = 0;
+	*/
+
 	pos += currSpeed;
+}
+
+void Player::setFalling(bool falling)
+{
+	if(falling)
+		targetSpeed.y = TERMINAL_SPEED;
+	else
+		targetSpeed.y = 0;
 }
 
 int Player::signum(float n)

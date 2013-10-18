@@ -14,6 +14,8 @@
 #include "include/InputManager.h"
 #include "include/TextureManager.h"
 
+#define FLOOR 352
+
 PlayState PlayState::m_PlayState;
 
 using namespace std;
@@ -44,7 +46,7 @@ void PlayState::init()
 	bg = new sf::Sprite(*tex);
 
 	/* Creates Player */
-	player = new Player(0, 352);
+	player = new Player(200, 100);
 
     cout << "PlayState: Init" << endl;
 }
@@ -95,9 +97,17 @@ void PlayState::handleEvents(cgf::Game* game)
 
 }
 
+bool PlayState::isPlayerFalling() {
+	/* FIXME: isPlayerFallling: this is a stub */
+	return player->getY() < FLOOR;
+}
+
 void PlayState::update(cgf::Game* game)
 {
+	player->setFalling(isPlayerFalling());
 	player->update();
+	/* check collisions */
+	player->setPosition(player->getX(), fmin(FLOOR, player->getY()));
 }
 
 void PlayState::draw(cgf::Game* game)
