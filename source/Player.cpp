@@ -24,12 +24,9 @@ void Player::setPosition(float x, float y)
 	pos.y = y;
 }
 
-void Player::setTargetSpeedX(float x)
+void Player::setXDirection(int direction)
 {
-	float speed = MAX_SPEED;
-	if (isRunning)
-		speed = MAX_SPEED_RUNNING;
-	targetSpeed.x = speed * signum(x);
+	xDirection = direction;
 }
 
 void Player::setJumpPressed(bool value) { 
@@ -40,44 +37,41 @@ void Player::setRunning(bool value) {
 	isRunning = value; 
 }
 
-void Player::update()
+void Player::update(float dt)
 {
-	if(canJump && jumpPressed) {
-		currSpeed.y = - TERMINAL_SPEED;
-		canJump = false;
+	dt = 100 * (1/dt);
+
+	/* X axis */
+	float xVelocity     = isRunning ? RUNNING_VELOCITY : WALK_VELOCITY;
+	float xAcceleration;
+	if (isRunning)
+		xAcceleration = RUNNING_ACCELERATION;
+	else {
+		if (fabs(currSpeed.x) <= WALK_VELOCITY)
+			xAcceleration = 1;
+		else
+			xAcceleration = STOP_RUNNING_ACCELERATION;
 	}
 
-	sf::Vector2<float> direction = targetSpeed - currSpeed;
-	direction.x = signum(direction.x);
-	direction.y = signum(direction.y);
-	currSpeed += direction * ACCELERATION;
-	sf::Vector2<float> diff = targetSpeed - currSpeed;
-
-	if(signum(diff.x) != direction.x) currSpeed.x = targetSpeed.x;
-	if(signum(diff.y) != direction.y) currSpeed.y = targetSpeed.y;
-
-
-	if (currSpeed.y == 0 && !jumpPressed)
-		canJump = true;
-
+	float xTargetSpeed  = xVelocity * xDirection;
+	float xNewDirection = signum(xTargetSpeed - currSpeed.x);
+	currSpeed.x += xNewDirection * xAcceleration * dt;
+	if (signum(xTargetSpeed - currSpeed.x) != xNewDirection) currSpeed.x = xTargetSpeed;
+	
+	/* Update Position */
 	pos += currSpeed;
 }
 
+
 void Player::setFalling(bool falling)
 {
-	if(falling)
-		targetSpeed.y = TERMINAL_SPEED;
-	else {
-		targetSpeed.y = 0;
-		currSpeed.y = 0;
-	}
 }
 
 int Player::signum(float n)
 {
-	if (n < -ZERO_THRESHOLD)
-		return -1;
-	if (n > ZERO_THRESHOLD)
-		return 1;
-	return 0;
+       if (n < -ZERO_THRESHOLD)
+               return -1;
+       if (n > ZERO_THRESHOLD)
+               return 1;
+       return 0;
 }

@@ -19,27 +19,33 @@ class Player
 
 	Player(float x, float y);
 	void draw(sf::RenderTarget *target);
-	void setTargetSpeedX(float x);
-	void update();
+	void setXDirection(int x);
+	void update(float dt);
 	void setFalling(bool falling);
 	void setPosition(float x, float y);
 	float getX() { return pos.x; }
 	float getY() { return pos.y; } 
+
+	int signum(float n);
 	
 	void setJumpPressed(bool value); 
 	void setRunning(bool value); 
 
+	#define PLAYER_H_RIGHT  1
+	#define PLAYER_H_LEFT  -1
+	#define PLAYER_H_NONE   0
+
     private:
 
-	#define MAX_SPEED 2.0f
-	#define MAX_SPEED_RUNNING 5.0f
-	#define ACCELERATION 0.3f
-	#define TERMINAL_SPEED 4.5f
+	#define WALK_VELOCITY              1.5f
+	#define RUNNING_VELOCITY           6 
+	#define RUNNING_ACCELERATION       0.07f 
+	#define STOP_RUNNING_ACCELERATION  (2 * RUNNING_ACCELERATION) 
 
 	sf::Vector2<float> pos;
-	sf::Vector2<float> targetSpeed = sf::Vector2<float>(0, 0);
 	sf::Vector2<float> currSpeed = sf::Vector2<float>(0, 0);
-	int signum(float n);
+
+	float xDirection;
 
 	bool jumpPressed;
 	bool canJump;

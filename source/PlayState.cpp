@@ -88,12 +88,11 @@ void PlayState::handleEvents(cgf::Game* game)
     if(im->testEvent("quit"))
         game->quit();
 
-	player->setTargetSpeedX(0);
-
+	player->setXDirection(PLAYER_H_NONE);
 	if(im->testEvent("left"))
-		player->setTargetSpeedX(-1);
+		player->setXDirection(PLAYER_H_LEFT);
 	if(im->testEvent("right"))
-		player->setTargetSpeedX(1);
+		player->setXDirection(PLAYER_H_RIGHT);
 
 	player->setJumpPressed(im->testEvent("jump"));
 	player->setRunning(im->testEvent("run"));
@@ -108,7 +107,7 @@ bool PlayState::isPlayerFalling() {
 void PlayState::update(cgf::Game* game)
 {
 	player->setFalling(isPlayerFalling());
-	player->update();
+	player->update((float) game->getUpdateInterval());
 	/* check collisions */
 	player->setPosition(player->getX(), fmin(FLOOR, player->getY()));
 }
