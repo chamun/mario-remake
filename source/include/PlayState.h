@@ -38,7 +38,7 @@ class PlayState : public cgf::GameState
 
     private:
 	
-	bool isPlayerFalling();
+	bool isPlayerOnTheGround();
 
     static PlayState m_PlayState;
     cgf::InputManager* im;

@@ -21,7 +21,7 @@ class Player
 	void draw(sf::RenderTarget *target);
 	void setXDirection(int x);
 	void update(float dt);
-	void setFalling(bool falling);
+	void setOnTheGround(bool falling);
 	void setPosition(float x, float y);
 	float getX() { return pos.x; }
 	float getY() { return pos.y; } 
@@ -42,15 +42,23 @@ class Player
 	#define RUNNING_ACCELERATION       0.07f 
 	#define STOP_RUNNING_ACCELERATION  (2 * RUNNING_ACCELERATION) 
 
+	#define JUMP_VELOCITY -5 
+	#define GRAVITY       0.14f
+	#define MAX_JUMP_TIME 15
+
+	void allowJump();
+
 	sf::Vector2<float> pos;
 	sf::Vector2<float> currSpeed = sf::Vector2<float>(0, 0);
 
 	float xDirection;
+	float jumpTime = MAX_JUMP_TIME;
 
-	bool jumpPressed;
-	bool canJump;
+	bool isRunning     = false;
+	bool isJumpPressed = false;
+	bool onGround      = false;
+	bool canJump       = false;
 
-	bool isRunning;
 };
 
 #endif

@@ -46,7 +46,7 @@ void PlayState::init()
 	bg = new sf::Sprite(*tex);
 
 	/* Creates Player */
-	player = new Player(0, FLOOR);
+	player = new Player(0, 0);
 
     cout << "PlayState: Init" << endl;
 }
@@ -99,15 +99,15 @@ void PlayState::handleEvents(cgf::Game* game)
 
 }
 
-bool PlayState::isPlayerFalling() {
-	/* FIXME: isPlayerFallling: this is a stub */
-	return player->getY() < FLOOR;
+bool PlayState::isPlayerOnTheGround() {
+	return player->getY() >= FLOOR;
 }
 
 void PlayState::update(cgf::Game* game)
 {
-	player->setFalling(isPlayerFalling());
+	player->setOnTheGround(isPlayerOnTheGround());
 	player->update((float) game->getUpdateInterval());
+
 	/* check collisions */
 	player->setPosition(player->getX(), fmin(FLOOR, player->getY()));
 }

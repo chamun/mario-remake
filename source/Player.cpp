@@ -30,11 +30,26 @@ void Player::setXDirection(int direction)
 }
 
 void Player::setJumpPressed(bool value) { 
-	jumpPressed = value; 
+	isJumpPressed = value; 
+	if (!value && onGround) 
+		allowJump();
 }
 
 void Player::setRunning(bool value) { 
 	isRunning = value; 
+}
+
+void Player::setOnTheGround(bool value)
+{
+	onGround = value;	
+	if (value && !isJumpPressed)
+		allowJump();
+}
+
+void Player::allowJump()
+{
+	canJump = true;
+	jumpTime = 0;
 }
 
 void Player::update(float dt)
@@ -42,7 +57,7 @@ void Player::update(float dt)
 	dt = 100 * (1/dt);
 
 	/* X axis */
-	float xVelocity     = isRunning ? RUNNING_VELOCITY : WALK_VELOCITY;
+	float xVelocity = isRunning ? RUNNING_VELOCITY : WALK_VELOCITY;
 	float xAcceleration;
 	if (isRunning)
 		xAcceleration = RUNNING_ACCELERATION;
@@ -58,14 +73,22 @@ void Player::update(float dt)
 	currSpeed.x += xNewDirection * xAcceleration * dt;
 	if (signum(xTargetSpeed - currSpeed.x) != xNewDirection) currSpeed.x = xTargetSpeed;
 	
+	/* Y axis */
+	if (canJump && isJumpPressed) {
+		currSpeed.y = JUMP_VELOCITY;		
+		canJump = false;
+	} else 
+	if (!canJump && isJumpPressed && jumpTime < MAX_JUMP_TIME) {
+		jumpTime += dt;
+		currSpeed.y += -GRAVITY * dt;
+	}
+
+	currSpeed.y += GRAVITY * dt;
+
 	/* Update Position */
 	pos += currSpeed;
 }
 
-
-void Player::setFalling(bool falling)
-{
-}
 
 int Player::signum(float n)
 {
