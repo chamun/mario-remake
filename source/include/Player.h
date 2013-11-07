@@ -19,17 +19,32 @@ class Player
 
 	Player(float x, float y);
 	void draw(sf::RenderTarget *target);
+
 	void setXDirection(int x);
-	void update(float dt);
+	float getXDirection();
+
+	void calculateUpdate(float dt);
+	void applyUpdate();
+
 	void setOnTheGround(bool falling);
 	void setPosition(float x, float y);
+
 	float getX() { return pos.x; }
 	float getY() { return pos.y; } 
+
+	float getCurrentSpeedX() { return currSpeed.x; }
+	float getCurrentSpeedY() { return currSpeed.y; }
+	void  setCurrentSpeedX(float sx) { currSpeed.x = sx; }
+
+	float getWidth() { return width; }
+	float getHeigh() { return height; }
 
 	int signum(float n);
 	
 	void setJumpPressed(bool value); 
 	void setRunning(bool value); 
+
+	void setMovementRect(sf::Rect<float> &movement);
 
 	#define PLAYER_H_RIGHT  1
 	#define PLAYER_H_LEFT  -1
@@ -50,6 +65,9 @@ class Player
 
 	sf::Vector2<float> pos;
 	sf::Vector2<float> currSpeed = sf::Vector2<float>(0, 0);
+
+	float height = 16;
+	float width  = 16;
 
 	float xDirection;
 	float jumpTime = MAX_JUMP_TIME;

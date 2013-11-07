@@ -1,0 +1,34 @@
+#include <sstream>
+#include "include/Tile.h"
+
+std::string Tile::getKindStr() 
+{
+	std::stringstream info;
+	info << "(" << pos.x << "," << pos.y <<") w:" << width << " h: " << height;
+
+	std::string ret = "<none>";
+
+	switch(kind) {
+		case Kind::COLLISION:
+			ret = "Collision";
+			break;
+		case Kind::PRIZE:
+			ret = "Prize";
+			break;
+		case Kind::ONEWAY:
+			ret = "One-way";
+			break;
+	}
+	info << " " << ret;
+
+	return  info.str();
+}
+
+Tile::Tile (const tmx::MapTile *tile)
+{
+	const sf::Sprite *sprite = &tile->sprite;
+
+	pos = sf::Vector2f(sprite->getPosition().x, sprite->getPosition().y);
+	width = sprite->getLocalBounds().width;
+	height = sprite->getLocalBounds().height;
+}

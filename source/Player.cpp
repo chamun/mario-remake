@@ -9,7 +9,7 @@ Player::Player(float x, float y)
 
 void Player::draw(sf::RenderTarget *target)
 {
-	sf::RectangleShape shape(sf::Vector2<float>(16,16));
+	sf::RectangleShape shape(sf::Vector2<float>(width, height));
 	shape.setFillColor(sf::Color(0xEA, 0xC5, 0xEA, 0xFF));
 	shape.setOutlineColor(sf::Color(0xFF, 0x99, 0xFF, 0xFF));
 	shape.setOutlineThickness(1);
@@ -27,6 +27,11 @@ void Player::setPosition(float x, float y)
 void Player::setXDirection(int direction)
 {
 	xDirection = direction;
+}
+
+float Player::getXDirection()
+{
+	return xDirection;
 }
 
 void Player::setJumpPressed(bool value) { 
@@ -52,7 +57,12 @@ void Player::allowJump()
 	jumpTime = 0;
 }
 
-void Player::update(float dt)
+void Player::applyUpdate()
+{
+	pos += currSpeed;
+}
+
+void Player::calculateUpdate(float dt)
 {
 	dt = 100 * (1/dt);
 
@@ -84,9 +94,6 @@ void Player::update(float dt)
 	}
 
 	currSpeed.y += GRAVITY * dt;
-
-	/* Update Position */
-	pos += currSpeed;
 }
 
 
@@ -97,4 +104,23 @@ int Player::signum(float n)
        if (n > ZERO_THRESHOLD)
                return 1;
        return 0;
+}
+
+void Player::setMovementRect(sf::Rect<float> &movement)
+{
+	float nx = pos.x + currSpeed.x; 
+	float ny = pos.y + currSpeed.y;
+
+	float left = fmin(pos.x, fmin(nx, fmin(pos.x + width, nx + width)));
+	float right = fmax(pos.x + width, nx + width);
+
+	float top = fmin(pos.y, fmin(ny, fmin(pos.y + height, ny + height)));
+	float bottom = fmax(pos.y + height, ny + height);
+
+	movement.left   = left;
+	movement.width  = fmax(right - left, width);
+
+	movement.top    = top;
+	movement.height = fmax(bottom - top, height);
+
 }

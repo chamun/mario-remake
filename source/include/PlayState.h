@@ -10,11 +10,14 @@
 #ifndef PLAY_STATE_H_
 #define PLAY_STATE_H_
 
+#include <SFML/Graphics/Rect.hpp>
+#include <vector>
 #include "GameState.h"
 #include "Sprite.h"
 #include "InputManager.h"
 #include "tmxloader/MapLoader.h"
 #include "Player.h"
+#include "Tile.h"
 
 class PlayState : public cgf::GameState
 {
@@ -39,6 +42,11 @@ class PlayState : public cgf::GameState
     private:
 	
 	bool isPlayerOnTheGround();
+
+	void checkCollisions();
+	void checkCollisionsOnX(std::vector<Tile *> &tiles, sf::Rect<float> &movement);
+	Tile* getTile(int row, int col, int layer_index);
+	void getTilesOnPath(sf::Rect<float> movement, std::vector<Tile*> &tiles);
 
     static PlayState m_PlayState;
     cgf::InputManager* im;
