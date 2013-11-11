@@ -13,12 +13,12 @@
  </layer>
  <layer name="One-way" width="40" height="30">
   <data encoding="base64" compression="zlib">
-   eJzt0jEKACAMBMGo//+zdtoINlGEGdj6iiQCAABgKqO61C5s7MrYJs/pXV/kl+BvHSCKAHE=
+   eJztzrENADAIwDAK//9MT2CiHWwpeyIAAAB2nVsOqleDAHylAZmwABc=
   </data>
  </layer>
  <layer name="Colision" width="40" height="30">
   <data encoding="base64" compression="zlib">
-   eJztzikOACAQBEEEIOH/vwWBQCBQHElV0lmzYkIAAAD4R+ylqbz4Kb067mk7+256fV9aBNAAAukAkA==
+   eJzt0rsKwCAMQFFrG8f6/39rBqGhOtSKj+EeuLgEyRDnAAAAAOBxaN50rl2ncGliCpWZW4v5ne3LfiuN3O99O3+SSr1/7njHANokYOwA4A==
   </data>
  </layer>
  <layer name="Collectable" width="40" height="30">
