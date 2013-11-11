@@ -1,5 +1,4 @@
-/*
- *  PlayState.cpp
+/* *  PlayState.cpp
  *  Normal "play" state
  *
  *  Created by Marcelo Cohen on 08/13.
@@ -108,7 +107,6 @@ bool PlayState::isPlayerOnTheGround() {
 
 void PlayState::update(cgf::Game* game)
 {
-	player->setOnTheGround(isPlayerOnTheGround());
 	player->calculateUpdate((float) game->getUpdateInterval());
 
 	/* check collisions */
@@ -117,7 +115,7 @@ void PlayState::update(cgf::Game* game)
 	/* apply update */
 	player->applyUpdate();
 	
-	player->setPosition(player->getX(), fmin(FLOOR, player->getY()));
+//	player->setPosition(player->getX(), fmin(FLOOR, player->getY()));
 }
 
 void PlayState::draw(cgf::Game* game)
@@ -138,6 +136,7 @@ void PlayState::checkCollisions()
 
 	/* X axis */
 	checkCollisionsOnX(tiles, movement);
+	checkCollisionsOnY(tiles, movement);
 
 	/* cleaning up */
 	for (int i = 0; i < tiles.size(); i++)
@@ -157,7 +156,7 @@ void PlayState::checkCollisionsOnX(vector<Tile *> &tiles, sf::Rect<float> &movem
 		float distance = FLT_MAX;
 		Tile *t = tiles[i];
 
-		if (player->getY() + player->getHeigh() <= t->getY())
+		if (player->getY() + player->getHeight() <= t->getY())
 			continue;
 
 		if (px < t->getX()) {
@@ -176,6 +175,47 @@ void PlayState::checkCollisionsOnX(vector<Tile *> &tiles, sf::Rect<float> &movem
 	player->setCurrentSpeedX(newSpeedx * player->getXDirection());
 }
 
+void PlayState::checkCollisionsOnY(vector<Tile *> &tiles, sf::Rect<float> &movement)
+{
+	float minDist = FLT_MAX;
+	float py = player->getY();
+
+	if (player->getCurrentSpeedY() > 0)
+		py += player->getHeight();
+
+
+	for (int i = 0; i < tiles.size(); i++) {
+
+		float distance = FLT_MAX;
+		Tile *t = tiles[i];
+
+		if (t->getLayer() == Layer::ONEWAY)
+			continue;
+
+		if (py < t->getY()) {
+			distance = t->getY() - py;
+		} else if (py > (t->getY() + t->getHeight())) {
+			distance = py - (t->getY() + t->getHeight());
+		} else {
+			distance = 0;
+		}
+
+		if ((player->getX() + player->getWidth()) > t->getX() && 
+		    (t->getX() + t->getWidth()) > player->getX())
+			minDist = fmin(minDist, distance);
+	}
+
+
+	float newSpeedy = fmin(minDist, fabs(player->getCurrentSpeedY()));
+	player->setCurrentSpeedY(newSpeedy * player->getYDirection());
+
+	if (minDist == 0) 
+		player->setOnTheGround(true);
+	else
+		player->setOnTheGround(false);
+
+}
+
 
 void PlayState::getTilesOnPath(sf::Rect<float> movement, vector<Tile*> &tiles)
 {
@@ -185,12 +225,11 @@ void PlayState::getTilesOnPath(sf::Rect<float> movement, vector<Tile*> &tiles)
 	int x2 = floor((movement.left + movement.width) / tilesize.x);
 	int y1 = floor(movement.top / tilesize.y);
 	int y2 = floor((movement.top + movement.height) / tilesize.y);
-	int collision_layer = 2;
 
 	for (int i = x1; i <= x2; i++)
 		for (int j = y1; j <= y2; j++) {
 			// Colision
-			Tile *t = getTile(j, i, collision_layer);
+			Tile *t = getTile(j, i, Layer::COLLISION);
 			if (t != NULL)
 				tiles.push_back(t);
 
@@ -201,14 +240,15 @@ void PlayState::getTilesOnPath(sf::Rect<float> movement, vector<Tile*> &tiles)
 
 }
 
-Tile* PlayState::getTile(int row, int col, int layer_index)
+Tile* PlayState::getTile(int row, int col, Layer layer_index)
 {
-	tmx::MapLayer& layer = map->GetLayers()[layer_index];
+	int index = static_cast<int>(layer_index);
+	tmx::MapLayer& layer = map->GetLayers()[index];
 	int ncols = floor(map->GetMapSize().x / map->GetMapTileSize().x);
 	tmx::MapTile *tile = &layer.tiles[row * ncols + col];
 
 	if (tile->gid > 0)
-		return new Tile(tile);
+		return new Tile(tile, layer_index);
 	
 	return NULL;
 }

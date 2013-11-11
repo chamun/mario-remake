@@ -8,14 +8,14 @@ std::string Tile::getKindStr()
 
 	std::string ret = "<none>";
 
-	switch(kind) {
-		case Kind::COLLISION:
+	switch(layer) {
+		case Layer::COLLISION:
 			ret = "Collision";
 			break;
-		case Kind::PRIZE:
+		case Layer::PRIZE:
 			ret = "Prize";
 			break;
-		case Kind::ONEWAY:
+		case Layer::ONEWAY:
 			ret = "One-way";
 			break;
 	}
@@ -24,11 +24,12 @@ std::string Tile::getKindStr()
 	return  info.str();
 }
 
-Tile::Tile (const tmx::MapTile *tile)
+Tile::Tile (const tmx::MapTile *tile, Layer layer)
 {
 	const sf::Sprite *sprite = &tile->sprite;
 
 	pos = sf::Vector2f(sprite->getPosition().x, sprite->getPosition().y);
 	width = sprite->getLocalBounds().width;
 	height = sprite->getLocalBounds().height;
+	this->layer = layer;
 }

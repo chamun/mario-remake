@@ -4,15 +4,15 @@
 #ifndef TILE_H_
 #define TILE_H_
 
-enum class Kind { COLLISION, PRIZE, ONEWAY};
+enum class Layer { BACKGROUND, ONEWAY, COLLISION, PRIZE};
 
 class Tile {
 
 	public:
 
-	Tile (const tmx::MapTile *tile);
+	Tile (const tmx::MapTile *tile, Layer layer);
 
-	Kind getKind() { return kind; }
+	Layer getLayer() { return layer; }
 	std::string getKindStr();
 
 	float getX() { return pos.x; }
@@ -22,7 +22,7 @@ class Tile {
 
 	private:
 
-	Kind kind = Kind::COLLISION;
+	Layer layer;
 	sf::Vector2f pos;
 	float width, height;
 };

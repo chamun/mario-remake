@@ -22,11 +22,12 @@ class Player
 
 	void setXDirection(int x);
 	float getXDirection();
+	float getYDirection();
 
 	void calculateUpdate(float dt);
 	void applyUpdate();
 
-	void setOnTheGround(bool falling);
+	void setOnTheGround(bool value);
 	void setPosition(float x, float y);
 
 	float getX() { return pos.x; }
@@ -35,9 +36,10 @@ class Player
 	float getCurrentSpeedX() { return currSpeed.x; }
 	float getCurrentSpeedY() { return currSpeed.y; }
 	void  setCurrentSpeedX(float sx) { currSpeed.x = sx; }
+	void  setCurrentSpeedY(float sy) { currSpeed.y = sy; }
 
 	float getWidth() { return width; }
-	float getHeigh() { return height; }
+	float getHeight() { return height; }
 
 	int signum(float n);
 	

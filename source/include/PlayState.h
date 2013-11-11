@@ -45,7 +45,8 @@ class PlayState : public cgf::GameState
 
 	void checkCollisions();
 	void checkCollisionsOnX(std::vector<Tile *> &tiles, sf::Rect<float> &movement);
-	Tile* getTile(int row, int col, int layer_index);
+	void checkCollisionsOnY(std::vector<Tile *> &tiles, sf::Rect<float> &movement);
+	Tile* getTile(int row, int col, Layer layer_index);
 	void getTilesOnPath(sf::Rect<float> movement, std::vector<Tile*> &tiles);
 
     static PlayState m_PlayState;

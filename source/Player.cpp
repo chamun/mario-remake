@@ -29,6 +29,11 @@ void Player::setXDirection(int direction)
 	xDirection = direction;
 }
 
+float Player::getYDirection()
+{
+	return signum(currSpeed.y);
+}
+
 float Player::getXDirection()
 {
 	return xDirection;
@@ -49,6 +54,11 @@ void Player::setOnTheGround(bool value)
 	onGround = value;	
 	if (value && !isJumpPressed)
 		allowJump();
+	else {
+		canJump = false;
+		jumpTime = MAX_JUMP_TIME;
+	}
+		
 }
 
 void Player::allowJump()
