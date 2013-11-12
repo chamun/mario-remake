@@ -54,9 +54,9 @@ void Player::setOnTheGround(bool value)
 	onGround = value;	
 	if (value && !isJumpPressed)
 		allowJump();
-	else {
+
+	if (!value) {
 		canJump = false;
-		jumpTime = MAX_JUMP_TIME;
 	}
 		
 }
