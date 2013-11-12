@@ -156,6 +156,9 @@ void PlayState::checkCollisionsOnX(vector<Tile *> &tiles, sf::Rect<float> &movem
 		float distance = FLT_MAX;
 		Tile *t = tiles[i];
 
+		if (t->getLayer() == Layer::ONEWAY)
+			continue;
+
 		if (player->getY() + player->getHeight() <= t->getY())
 			continue;
 
@@ -189,8 +192,9 @@ void PlayState::checkCollisionsOnY(vector<Tile *> &tiles, sf::Rect<float> &movem
 		float distance = FLT_MAX;
 		Tile *t = tiles[i];
 
-		if (t->getLayer() == Layer::ONEWAY)
-			continue;
+		if (t->getLayer() == Layer::ONEWAY &&
+			player->getY() + player->getHeight() > t->getY()) 
+				continue;
 
 		if (py < t->getY()) {
 			distance = t->getY() - py;
@@ -233,9 +237,12 @@ void PlayState::getTilesOnPath(sf::Rect<float> movement, vector<Tile*> &tiles)
 			if (t != NULL)
 				tiles.push_back(t);
 
+			// OneWay
+			t = getTile(j, i, Layer::ONEWAY);
+			if (t != NULL)
+				tiles.push_back(t);
 
 			// Blocks
-			// OneWay
 		}
 
 }
