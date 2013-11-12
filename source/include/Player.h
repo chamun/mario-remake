@@ -21,8 +21,6 @@ class Player
 	void draw(sf::RenderTarget *target);
 
 	void setXDirection(int x);
-	float getXDirection();
-	float getYDirection();
 
 	void calculateUpdate(float dt);
 	void applyUpdate();
@@ -35,6 +33,9 @@ class Player
 
 	float getCurrentSpeedX() { return currSpeed.x; }
 	float getCurrentSpeedY() { return currSpeed.y; }
+	float getSpeedDirectionX() { return signum(currSpeed.x); }
+	float getSpeedDirectionY() { return signum(currSpeed.y); }
+
 	void  setCurrentSpeedX(float sx) { currSpeed.x = sx; }
 	void  setCurrentSpeedY(float sy) { currSpeed.y = sy; }
 

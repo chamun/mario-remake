@@ -29,16 +29,6 @@ void Player::setXDirection(int direction)
 	xDirection = direction;
 }
 
-float Player::getYDirection()
-{
-	return signum(currSpeed.y);
-}
-
-float Player::getXDirection()
-{
-	return xDirection;
-}
-
 void Player::setJumpPressed(bool value) { 
 	isJumpPressed = value; 
 	if (!value && onGround) 

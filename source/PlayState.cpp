@@ -172,7 +172,7 @@ void PlayState::checkCollisionsOnX(vector<Tile *> &tiles, sf::Rect<float> &movem
 	}
 
 	float newSpeedx = fmin(minDist, fabs(player->getCurrentSpeedX()));
-	player->setCurrentSpeedX(newSpeedx * player->getXDirection());
+	player->setCurrentSpeedX(newSpeedx * player->getSpeedDirectionX());
 }
 
 void PlayState::checkCollisionsOnY(vector<Tile *> &tiles, sf::Rect<float> &movement)
@@ -207,7 +207,7 @@ void PlayState::checkCollisionsOnY(vector<Tile *> &tiles, sf::Rect<float> &movem
 
 
 	float newSpeedy = fmin(minDist, fabs(player->getCurrentSpeedY()));
-	player->setCurrentSpeedY(newSpeedy * player->getYDirection());
+	player->setCurrentSpeedY(newSpeedy * player->getSpeedDirectionY());
 
 	if (minDist == 0) 
 		player->setOnTheGround(true);
