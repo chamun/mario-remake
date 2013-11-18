@@ -73,22 +73,22 @@ void PlayState::resume()
 
 void PlayState::handleEvents(cgf::Game* game)
 {
-    sf::Event event;
-    sf::RenderWindow* screen = game->getScreen();
+	sf::Event event;
+	sf::RenderWindow* screen = game->getScreen();
 
-    while (screen->pollEvent(event))
-    {
-        if(event.type == sf::Event::Closed)
-            game->quit();
+	while (screen->pollEvent(event))
+	{
+		if(event.type == sf::Event::Closed)
+			game->quit();
 
 		if(event.type == sf::Event::KeyReleased) {
 			if (event.key.code == sf::Keyboard::Space)
 				game->toggleStats();
 		}
-    }
+	}
 
-    if(im->testEvent("quit"))
-        game->quit();
+	if(im->testEvent("quit"))
+		game->quit();
 
 	player->setXDirection(PLAYER_H_NONE);
 	if(im->testEvent("left"))
