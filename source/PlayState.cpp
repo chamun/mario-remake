@@ -40,6 +40,7 @@ void PlayState::init()
 void PlayState::cleanup()
 {
 	world->cleanup();
+	delete (player);
     cout << "PlayState: Clean" << endl;
 }
 

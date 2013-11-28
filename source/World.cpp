@@ -4,7 +4,7 @@
 #include "include/TextureManager.h"
 #include "include/tmxloader/MapObject.h"
 #include "include/Tile.h"
-#include "include/SimpleCoin.h"
+#include "include/Coin.h"
 #include "include/RedMushroom.h"
 
 // simpleCoin, redMushroom
@@ -37,7 +37,7 @@ void World::cleanup()
 {
 	delete(map);
 	delete(bg);
-	delete(player);
+//	collectables.clear();
 }
 
 void World::update(float interval)
@@ -54,7 +54,13 @@ void World::update(float interval)
 void World::draw(sf::RenderWindow *screen)
 {
 	screen->draw(*bg);
-	map->Draw(*screen);
+	//map->Draw(*screen);
+	map->Draw(*screen, static_cast<int>(Layer::BACKGROUND));
+	map->Draw(*screen, static_cast<int>(Layer::ONEWAY));
+	map->Draw(*screen, static_cast<int>(Layer::COLLISION));
+	for(int i = 0; i < collectables.size(); i++) {
+		collectables[i]->draw(screen);
+	}
 	player->draw(screen);
 }
 
@@ -195,8 +201,7 @@ Tile* World::getTile(int row, int col, Layer layer_index)
 void World::loadCollectables() 
 {
 
-	for (int i = 0; i < collectables.size(); i++)
-		delete collectables[i];
+	collectables.clear();
 
 	int index = static_cast<int>(Layer::COLLECTABLE);
 	tmx::MapLayer& layer = map->GetLayers()[index];
@@ -214,10 +219,15 @@ void World::loadCollectables()
 Collectable * World::makeCollectable(tmx::MapObject *obj)
 {
 	std::string type = obj->GetPropertyString("type");
+	float x = obj->GetPosition().x;
+	float y = obj->GetPosition().y - 16;
+	float width  = obj->GetAABB().width;
+	float height = obj->GetAABB().height;
+
 	if (type == "simpleCoin")
-		return new SimpleCoin();
+		return new Coin(x, y, width, height);
 	if (type == "redMushroom")
-		return new RedMushroom();
+		return new RedMushroom(x, y, width, height);
 
 	return NULL;
 }

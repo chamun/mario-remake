@@ -1,15 +1,19 @@
 #ifndef GREENMUSHROOM_H
 #define GREENMUSHROOM_H
 
-#include "Mushroom.h"
+#include "Collectable.h"
 #include <iostream>
 
-class GreenMushroom : public Mushroom
+class GreenMushroom : public Collectable
 {
 	public:
 
-	GreenMushroom() {
+	GreenMushroom(float x, float y, float width, float height) : Collectable(x, y, width, height) {
 		std::cout << "Created Green Mushrrom" << std::endl;
+	}
+
+	void draw(sf::RenderTarget *target)
+	{
 	}
 
     void actionOnContact(ActionHandler *handler) {

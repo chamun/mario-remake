@@ -11,6 +11,10 @@ class Medallion: public Coin
 		std::cout << "Created a Simple Coin" << std::endl;
 	}
 
+	void draw(sf::RenderTarget *target)
+	{
+	}
+
     void actionOnContact(ActionHandler *handler) {
 		std::cout << "Medallion: actionOnContact" << std::endl;
 		handler->addMedallion();

@@ -46,7 +46,7 @@ Player.o: Player.cpp include/Player.h
 Tile.o: Tile.cpp include/Tile.h
 	$(CXX) -c Tile.cpp
 
-World.o: World.cpp include/World.h
+World.o: World.cpp include/World.h include/Coin.h include/RedMushroom.h
 	$(CXX) -c World.cpp
 
 clean:

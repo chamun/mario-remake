@@ -21,9 +21,66 @@
    eJzt0rsKwCAMQFFrG8f6/39rBqGhOtSKj+EeuLgEyRDnAAAAAOBxaN50rl2ncGliCpWZW4v5ne3LfiuN3O99O3+SSr1/7njHANokYOwA4A==
   </data>
  </layer>
- <layer name="Collectable" width="40" height="30">
-  <data encoding="base64" compression="zlib">
-   eJztzjENAAAIwDAkgH+zKCCcHLTJ/kUAAAD8UEPs8noAeK0BoaIAdw==
-  </data>
- </layer>
+ <objectgroup name="Collectable" width="40" height="30">
+  <object gid="17" x="32" y="288">
+   <properties>
+    <property name="type" value="simpleCoin"/>
+   </properties>
+  </object>
+  <object gid="17" x="48" y="288">
+   <properties>
+    <property name="type" value="simpleCoin"/>
+   </properties>
+  </object>
+  <object gid="17" x="64" y="288">
+   <properties>
+    <property name="type" value="simpleCoin"/>
+   </properties>
+  </object>
+  <object gid="17" x="80" y="288">
+   <properties>
+    <property name="type" value="simpleCoin"/>
+   </properties>
+  </object>
+  <object gid="17" x="96" y="288">
+   <properties>
+    <property name="type" value="simpleCoin"/>
+   </properties>
+  </object>
+  <object gid="17" x="112" y="288">
+   <properties>
+    <property name="type" value="simpleCoin"/>
+   </properties>
+  </object>
+  <object gid="17" x="128" y="288">
+   <properties>
+    <property name="type" value="simpleCoin"/>
+   </properties>
+  </object>
+  <object gid="17" x="144" y="288">
+   <properties>
+    <property name="type" value="simpleCoin"/>
+   </properties>
+  </object>
+  <object gid="17" x="160" y="288">
+   <properties>
+    <property name="type" value="simpleCoin"/>
+   </properties>
+  </object>
+  <object gid="17" x="176" y="288">
+   <properties>
+    <property name="type" value="simpleCoin"/>
+   </properties>
+  </object>
+  <object gid="17" x="192" y="288">
+   <properties>
+    <property name="type" value="simpleCoin"/>
+   </properties>
+  </object>
+  <object gid="16" x="432" y="320">
+   <properties>
+    <property name="type" value="redMushroom"/>
+   </properties>
+  </object>
+ </objectgroup>
 </map>
