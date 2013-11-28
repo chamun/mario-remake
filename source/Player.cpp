@@ -2,10 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <cmath>
 
-Player::Player(float x, float y) 
-{
-	pos = sf::Vector2<float>(x, y);
-}
+Player::Player() {}
 
 void Player::draw(sf::RenderTarget *target)
 {

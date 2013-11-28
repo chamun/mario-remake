@@ -17,7 +17,7 @@ class Player
 {
     public:
 
-	Player(float x, float y);
+	Player();
 	void draw(sf::RenderTarget *target);
 
 	void setXDirection(int x);

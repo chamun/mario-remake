@@ -13,11 +13,9 @@
 #include <SFML/Graphics/Rect.hpp>
 #include <vector>
 #include "GameState.h"
-#include "Sprite.h"
 #include "InputManager.h"
-#include "tmxloader/MapLoader.h"
 #include "Player.h"
-#include "Tile.h"
+#include "World.h"
 
 class PlayState : public cgf::GameState
 {
@@ -40,20 +38,10 @@ class PlayState : public cgf::GameState
 	PlayState() {}
 
     private:
-	
-	bool isPlayerOnTheGround();
-
-	void checkCollisions();
-	void checkCollisionsOnX(std::vector<Tile *> &tiles, sf::Rect<float> &movement);
-	void checkCollisionsOnY(std::vector<Tile *> &tiles, sf::Rect<float> &movement);
-	Tile* getTile(int row, int col, Layer layer_index);
-	void getTilesOnPath(sf::Rect<float> movement, std::vector<Tile*> &tiles);
-
     static PlayState m_PlayState;
     cgf::InputManager* im;
-	tmx::MapLoader* map;
-	sf::Sprite* bg;
 	Player* player;
+	World *world;
 };
 
 #endif
