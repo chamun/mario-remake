@@ -12,12 +12,11 @@ std::string Tile::getKindStr()
 		case Layer::COLLISION:
 			ret = "Collision";
 			break;
-		case Layer::PRIZE:
-			ret = "Prize";
-			break;
 		case Layer::ONEWAY:
 			ret = "One-way";
 			break;
+		default:
+			ret = "Default";
 	}
 	info << " " << ret;
 

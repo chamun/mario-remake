@@ -4,6 +4,10 @@
 #include "include/TextureManager.h"
 #include "include/tmxloader/MapObject.h"
 #include "include/Tile.h"
+#include "include/SimpleCoin.h"
+#include "include/RedMushroom.h"
+
+// simpleCoin, redMushroom
 
 World::World(Player *player)
 {
@@ -26,6 +30,7 @@ World::World(Player *player)
 void World::setMap(std::string level)
 {
 	map->Load(level);
+	loadCollectables();
 }
 
 void World::cleanup()
@@ -184,5 +189,35 @@ Tile* World::getTile(int row, int col, Layer layer_index)
 	if (tile->gid > 0)
 		return new Tile(tile, layer_index);
 	
+	return NULL;
+}
+
+void World::loadCollectables() 
+{
+
+	for (int i = 0; i < collectables.size(); i++)
+		delete collectables[i];
+
+	int index = static_cast<int>(Layer::COLLECTABLE);
+	tmx::MapLayer& layer = map->GetLayers()[index];
+	std::vector<tmx::MapObject>& objects = layer.objects;
+
+	for (int i = 0; i < objects.size(); i++) {
+		tmx::MapObject *obj = &objects[i];
+		Collectable *c = makeCollectable(obj);
+		if (c != NULL)
+			collectables.push_back(c);
+	}
+
+}
+
+Collectable * World::makeCollectable(tmx::MapObject *obj)
+{
+	std::string type = obj->GetPropertyString("type");
+	if (type == "simpleCoin")
+		return new SimpleCoin();
+	if (type == "redMushroom")
+		return new RedMushroom();
+
 	return NULL;
 }
