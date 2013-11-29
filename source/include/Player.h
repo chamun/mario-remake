@@ -48,6 +48,7 @@ class Player
 	void setRunning(bool value); 
 
 	void setMovementRect(sf::Rect<float> &movement);
+	void getLogicalBox(sf::Rect<float> &movement);
 
 	#define PLAYER_H_RIGHT  1
 	#define PLAYER_H_LEFT  -1

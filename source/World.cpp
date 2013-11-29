@@ -27,6 +27,12 @@ World::World(Player *player)
 
 }
 
+void ActionHandler::increaseLife() { std::cout << "World: Increase life" << std::endl;} 
+void ActionHandler::growPlayer()   { std::cout << "World: Grow player" << std::endl;}
+void ActionHandler::addCoin()      { std::cout << "World: Add coin" << std::endl;} 
+void ActionHandler::addMedallion() { std::cout << "World: Add Medallion" << std::endl;} 
+void ActionHandler::addCollectable(Collectable *collectable) { std::cout << "World: Add collectable" << std::endl;} 
+
 void World::setMap(std::string level)
 {
 	map->Load(level);
@@ -44,8 +50,8 @@ void World::update(float interval)
 {
 	player->calculateUpdate(interval);
 
-	/* check collisions */
 	checkCollisions();
+	checkCollectables();
 
 	/* apply update */
 	player->applyUpdate();
@@ -230,4 +236,28 @@ Collectable * World::makeCollectable(tmx::MapObject *obj)
 		return new RedMushroom(x, y, width, height);
 
 	return NULL;
+}
+
+void World::checkCollectables()
+{
+	bool *remove = new bool[collectables.size()];
+	
+	for (int i = 0; i < collectables.size(); i++)
+	{
+		Collectable *c = collectables[i];
+		remove[i] = false;
+		sf::Rect<float> pRect, cRect;
+		player->getLogicalBox(pRect);
+		c->getLogicalBox(cRect);
+		if (pRect.intersects(cRect)) {
+			remove[i] = true;
+			c->actionOnContact(this);
+		}
+	}
+
+	for (int i = 0; i < collectables.size(); i++)
+		if (remove[i])
+			collectables.erase(collectables.begin() + i);
+
+	delete remove;
 }

@@ -9,8 +9,9 @@
 #include "Sprite.h"
 #include "Tile.h"
 #include "Collectable.h"
+#include "ActionHandler.h"
 
-class World {
+class World : ActionHandler {
 
 	public:
 
@@ -19,6 +20,12 @@ class World {
 	void draw(sf::RenderWindow *screen);
 	void cleanup();
 	void setMap(std::string level);
+
+	void increaseLife() {} 
+	void growPlayer() {}
+	void addCoin() {}
+	void addMedallion() {}
+	void addCollectable(Collectable *collectable) {}
 
 	private: 
 	tmx::MapLoader *map;
@@ -32,6 +39,7 @@ class World {
 	void checkCollisionsOnY(std::vector<Tile *> &tiles, sf::Rect<float> &movement);
 	Tile* getTile(int row, int col, Layer layer_index);
 	void getTilesOnPath(sf::Rect<float> movement, std::vector<Tile*> &tiles);
+	void checkCollectables();
 
 	void loadCollectables();
 	Collectable* makeCollectable(tmx::MapObject *obj);

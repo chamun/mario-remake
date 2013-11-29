@@ -11,6 +11,7 @@ class Collectable
 
     virtual void actionOnContact(ActionHandler *handler) = 0;
 	virtual void draw(sf::RenderTarget *target) = 0;
+	virtual void getLogicalBox(sf::Rect<float> &rect) = 0;
 
 	sf::Vector2f getPosition() { return pos; }
 	float getWidth() { return width; }

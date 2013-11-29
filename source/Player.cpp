@@ -121,3 +121,11 @@ void Player::setMovementRect(sf::Rect<float> &movement)
 	movement.height = fmax(bottom - top, height);
 
 }
+
+void Player::getLogicalBox(sf::Rect<float> &rect)
+{
+	rect.left = getX();
+	rect.top  = getY();
+	rect.height = getHeight();
+	rect.width  = getWidth();
+}
