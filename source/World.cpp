@@ -5,6 +5,7 @@
 #include "include/tmxloader/MapObject.h"
 #include "include/Tile.h"
 #include "include/Coin.h"
+#include "include/Enemy.h"
 #include "include/RedMushroom.h"
 
 // simpleCoin, redMushroom
@@ -24,6 +25,10 @@ World::World(Player *player)
 		exit(EXIT_FAILURE);
 	}
 	bg = new sf::Sprite(*tex);
+
+	Enemy *enemy = new Enemy();
+	enemy->setPosition(100, 100);
+	enemies.push_back(enemy);
 
 }
 
@@ -53,7 +58,7 @@ void World::cleanup()
 
 void World::update(float interval)
 {
-	player->calculateUpdate(interval);
+	player->calculateUpdate(100 * (1/interval));
 
 	checkCollisions();
 	checkCollectables();
@@ -71,6 +76,9 @@ void World::draw(sf::RenderWindow *screen)
 	map->Draw(*screen, static_cast<int>(Layer::COLLISION));
 	for(int i = 0; i < collectables.size(); i++) {
 		collectables[i]->draw(screen);
+	}
+	for(int i = 0; i < enemies.size(); i++) {
+		enemies[i]->draw(screen);
 	}
 	player->draw(screen);
 }
@@ -260,7 +268,7 @@ void World::checkCollectables()
 		}
 	}
 
-	for (int i = 0; i < collectables.size(); i++)
+	for (int i = collectables.size() - 1; i >= 0; i--)
 		if (remove[i])
 			collectables.erase(collectables.begin() + i);
 
