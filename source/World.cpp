@@ -1,4 +1,6 @@
 #include <cfloat>
+#include <cstdlib>
+#include <ctime>
 
 #include "include/World.h"
 #include "include/TextureManager.h"
@@ -25,12 +27,6 @@ World::World(Player *player)
 		exit(EXIT_FAILURE);
 	}
 	bg = new sf::Sprite(*tex);
-
-	Enemy *enemy = new Enemy();
-	enemy->setPosition(100, 100);
-	enemy->setXDirection(MOVABLE_H_RIGHT);
-	enemies.push_back(enemy);
-
 }
 
 void World::increaseLife() { std::cout << "World: Increase life" << std::endl;} 
@@ -48,13 +44,24 @@ void World::setMap(std::string level)
 {
 	map->Load(level);
 	loadCollectables();
+
+	srand(time(NULL));	
+	int w = (int) map->GetMapSize().x;
+	for (int i = 0; i < 5; i++) {
+		float x = rand() % w;
+		Enemy *enemy = new Enemy();
+		enemy->setPosition(x, 10);
+		enemy->setXDirection(MOVABLE_H_RIGHT);
+		enemies.push_back(enemy);
+	}
 }
 
 void World::cleanup()
 {
 	delete(map);
 	delete(bg);
-//	collectables.clear();
+	collectables.clear();
+	enemies.clear();
 }
 
 void World::update(float interval)
@@ -104,8 +111,8 @@ void World::checkCollisions()
 		Movable *actor = enemies[i];
 		actor->setMovementRect(movement);
 		getTilesOnPath(movement, tiles);
-		checkCollisionsOnX(actor, tiles, movement);
 		checkCollisionsOnY(actor, tiles, movement);
+		checkMarkers(actor);
 	}
 
 	/* cleaning up */
@@ -262,6 +269,37 @@ Collectable * World::makeCollectable(tmx::MapObject *obj)
 		return new RedMushroom(x, y, width, height);
 
 	return NULL;
+}
+
+void World::checkMarkers(Movable *actor)
+{
+	int index = static_cast<int>(Layer::MARKER);
+	tmx::MapLayer& layer = map->GetLayers()[index];
+	std::vector<tmx::MapObject>& objects = layer.objects;
+
+	sf::Rect<float> aRect;
+	actor->getLogicalBox(aRect);
+	for (int i = 0; i < objects.size(); i++) {
+		tmx::MapObject *obj = &objects[i];
+		float x = obj->GetPosition().x;
+		float y = obj->GetPosition().y;
+		float width  = obj->GetAABB().width;
+		float height = obj->GetAABB().height;
+
+		sf::Rect<float> oRect(x, y, width, height);
+
+		if (aRect.intersects(oRect)) {
+			actor->setCurrentSpeedX(actor->getCurrentSpeedX() * -1);
+			actor->setXDirection(actor->getSpeedDirectionX());
+		}
+
+	}
+
+	if (aRect.left <= 0 || 
+	    (aRect.left + aRect.width >= map->GetMapSize().x)) {
+		actor->setCurrentSpeedX(actor->getCurrentSpeedX() * -1);
+		actor->setXDirection(actor->getSpeedDirectionX());
+	}
 }
 
 void World::checkCollectables()

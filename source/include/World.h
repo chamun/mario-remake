@@ -36,8 +36,8 @@ class World : ActionHandler {
 	std::vector<Collectable *> collectables;
 	std::vector<Movable *> enemies;
 
-
 	void checkCollisions();
+	void checkMarkers(Movable *actor);
 	void checkCollisionsOnX(Movable *actor, std::vector<Tile *> &tiles, sf::Rect<float> &movement);
 	void checkCollisionsOnY(Movable *actor, std::vector<Tile *> &tiles, sf::Rect<float> &movement);
 	Tile* getTile(int row, int col, Layer layer_index);

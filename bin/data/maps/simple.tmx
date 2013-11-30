@@ -83,4 +83,10 @@
    </properties>
   </object>
  </objectgroup>
+ <objectgroup name="Movement" width="40" height="30">
+  <object x="208" y="304" width="16" height="16"/>
+  <object x="16" y="304" width="16" height="16"/>
+  <object x="272" y="352" width="16" height="16"/>
+  <object x="336" y="352" width="16" height="16"/>
+ </objectgroup>
 </map>
