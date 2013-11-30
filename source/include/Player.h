@@ -50,6 +50,9 @@ class Player
 	void setMovementRect(sf::Rect<float> &movement);
 	void getLogicalBox(sf::Rect<float> &movement);
 
+	void grow();
+	void shrink();
+
 	#define PLAYER_H_RIGHT  1
 	#define PLAYER_H_LEFT  -1
 	#define PLAYER_H_NONE   0
@@ -69,6 +72,8 @@ class Player
 
 	sf::Vector2<float> pos;
 	sf::Vector2<float> currSpeed = sf::Vector2<float>(0, 0);
+
+	const int growSize = 12;
 
 	float height = 16;
 	float width  = 16;

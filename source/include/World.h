@@ -21,11 +21,11 @@ class World : ActionHandler {
 	void cleanup();
 	void setMap(std::string level);
 
-	void increaseLife() {} 
-	void growPlayer() {}
-	void addCoin() {}
-	void addMedallion() {}
-	void addCollectable(Collectable *collectable) {}
+	void increaseLife(); 
+	void growPlayer();
+	void addCoin();
+	void addMedallion();
+	void addCollectable(Collectable *collectable);
 
 	private: 
 	tmx::MapLoader *map;

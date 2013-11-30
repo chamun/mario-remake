@@ -129,3 +129,15 @@ void Player::getLogicalBox(sf::Rect<float> &rect)
 	rect.height = getHeight();
 	rect.width  = getWidth();
 }
+
+void Player::grow() 
+{
+	pos.y -= growSize;
+	height += growSize;
+}
+
+void Player::shrink()
+{
+	pos.y  += growSize;
+	height -= growSize;
+}

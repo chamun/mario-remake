@@ -27,11 +27,16 @@ World::World(Player *player)
 
 }
 
-void ActionHandler::increaseLife() { std::cout << "World: Increase life" << std::endl;} 
-void ActionHandler::growPlayer()   { std::cout << "World: Grow player" << std::endl;}
-void ActionHandler::addCoin()      { std::cout << "World: Add coin" << std::endl;} 
-void ActionHandler::addMedallion() { std::cout << "World: Add Medallion" << std::endl;} 
-void ActionHandler::addCollectable(Collectable *collectable) { std::cout << "World: Add collectable" << std::endl;} 
+void World::increaseLife() { std::cout << "World: Increase life" << std::endl;} 
+void World::addCoin()      { std::cout << "World: Add coin" << std::endl;} 
+void World::addMedallion() { std::cout << "World: Add Medallion" << std::endl;} 
+void World::addCollectable(Collectable *collectable) { std::cout << "World: Add collectable" << std::endl;} 
+
+void World::growPlayer()  
+{ 
+	std::cout << "World: Grow player" << std::endl;
+	this->player->grow();
+}
 
 void World::setMap(std::string level)
 {
