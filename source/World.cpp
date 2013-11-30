@@ -28,6 +28,7 @@ World::World(Player *player)
 
 	Enemy *enemy = new Enemy();
 	enemy->setPosition(100, 100);
+	enemy->setXDirection(MOVABLE_H_RIGHT);
 	enemies.push_back(enemy);
 
 }
@@ -58,13 +59,19 @@ void World::cleanup()
 
 void World::update(float interval)
 {
-	player->calculateUpdate(100 * (1/interval));
+	float dt = 100 * (1/interval);
+
+	player->calculateUpdate(dt);
+	for(int i = 0; i < enemies.size(); i++)
+		enemies[i]->calculateUpdate(dt);
 
 	checkCollisions();
 	checkCollectables();
 
 	/* apply update */
 	player->applyUpdate();
+	for(int i = 0; i < enemies.size(); i++)
+		enemies[i]->applyUpdate();
 }
 
 void World::draw(sf::RenderWindow *screen)
@@ -90,23 +97,29 @@ void World::checkCollisions()
 	
 	player->setMovementRect(movement);
 	getTilesOnPath(movement, tiles);
+	checkCollisionsOnX(player, tiles, movement);
+	checkCollisionsOnY(player, tiles, movement);
 
-	/* X axis */
-	checkCollisionsOnX(tiles, movement);
-	checkCollisionsOnY(tiles, movement);
+	for(int i = 0; i < enemies.size(); i++) {
+		Movable *actor = enemies[i];
+		actor->setMovementRect(movement);
+		getTilesOnPath(movement, tiles);
+		checkCollisionsOnX(actor, tiles, movement);
+		checkCollisionsOnY(actor, tiles, movement);
+	}
 
 	/* cleaning up */
 	for (int i = 0; i < tiles.size(); i++)
 		delete tiles[i];
 }
 
-void World::checkCollisionsOnX(std::vector<Tile *> &tiles, sf::Rect<float> &movement)
+void World::checkCollisionsOnX(Movable *actor, std::vector<Tile *> &tiles, sf::Rect<float> &movement)
 {
 	float minDist = FLT_MAX;
-	float px = player->getX();
+	float px = actor->getX();
 
-	if (player->getCurrentSpeedX() > 0)
-		px += player->getWidth();
+	if (actor->getCurrentSpeedX() > 0)
+		px += actor->getWidth();
 
 	for (int i = 0; i < tiles.size(); i++) {
 
@@ -116,7 +129,7 @@ void World::checkCollisionsOnX(std::vector<Tile *> &tiles, sf::Rect<float> &move
 		if (t->getLayer() == Layer::ONEWAY)
 			continue;
 
-		if (player->getY() + player->getHeight() <= t->getY())
+		if (actor->getY() + actor->getHeight() <= t->getY())
 			continue;
 
 		if (px < t->getX()) {
@@ -131,17 +144,17 @@ void World::checkCollisionsOnX(std::vector<Tile *> &tiles, sf::Rect<float> &move
 		minDist = fmin(minDist, distance);
 	}
 
-	float newSpeedx = fmin(minDist, fabs(player->getCurrentSpeedX()));
-	player->setCurrentSpeedX(newSpeedx * player->getSpeedDirectionX());
+	float newSpeedx = fmin(minDist, fabs(actor->getCurrentSpeedX()));
+	actor->setCurrentSpeedX(newSpeedx * actor->getSpeedDirectionX());
 }
 
-void World::checkCollisionsOnY(std::vector<Tile *> &tiles, sf::Rect<float> &movement)
+void World::checkCollisionsOnY(Movable *actor, std::vector<Tile *> &tiles, sf::Rect<float> &movement)
 {
 	float minDist = FLT_MAX;
-	float py = player->getY();
+	float py = actor->getY();
 
-	if (player->getCurrentSpeedY() > 0)
-		py += player->getHeight();
+	if (actor->getCurrentSpeedY() > 0)
+		py += actor->getHeight();
 
 
 	for (int i = 0; i < tiles.size(); i++) {
@@ -150,7 +163,7 @@ void World::checkCollisionsOnY(std::vector<Tile *> &tiles, sf::Rect<float> &move
 		Tile *t = tiles[i];
 
 		if (t->getLayer() == Layer::ONEWAY &&
-			player->getY() + player->getHeight() > t->getY()) 
+			actor->getY() + actor->getHeight() > t->getY()) 
 				continue;
 
 		if (py < t->getY()) {
@@ -161,19 +174,19 @@ void World::checkCollisionsOnY(std::vector<Tile *> &tiles, sf::Rect<float> &move
 			distance = 0;
 		}
 
-		if ((player->getX() + player->getWidth()) > t->getX() && 
-		    (t->getX() + t->getWidth()) > player->getX())
+		if ((actor->getX() + actor->getWidth()) > t->getX() && 
+		    (t->getX() + t->getWidth()) > actor->getX())
 			minDist = fmin(minDist, distance);
 	}
 
 
-	float newSpeedy = fmin(minDist, fabs(player->getCurrentSpeedY()));
-	player->setCurrentSpeedY(newSpeedy * player->getSpeedDirectionY());
+	float newSpeedy = fmin(minDist, fabs(actor->getCurrentSpeedY()));
+	actor->setCurrentSpeedY(newSpeedy * actor->getSpeedDirectionY());
 
 	if (minDist == 0) 
-		player->setOnTheGround(true);
+		actor->setOnTheGround(true);
 	else
-		player->setOnTheGround(false);
+		actor->setOnTheGround(false);
 
 }
 

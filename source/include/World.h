@@ -5,6 +5,7 @@
 #include <vector>
 #include "Sprite.h"
 #include "tmxloader/MapLoader.h"
+#include "Movable.h"
 #include "Player.h"
 #include "Sprite.h"
 #include "Tile.h"
@@ -37,8 +38,8 @@ class World : ActionHandler {
 
 
 	void checkCollisions();
-	void checkCollisionsOnX(std::vector<Tile *> &tiles, sf::Rect<float> &movement);
-	void checkCollisionsOnY(std::vector<Tile *> &tiles, sf::Rect<float> &movement);
+	void checkCollisionsOnX(Movable *actor, std::vector<Tile *> &tiles, sf::Rect<float> &movement);
+	void checkCollisionsOnY(Movable *actor, std::vector<Tile *> &tiles, sf::Rect<float> &movement);
 	Tile* getTile(int row, int col, Layer layer_index);
 	void getTilesOnPath(sf::Rect<float> movement, std::vector<Tile*> &tiles);
 	void checkCollectables();
