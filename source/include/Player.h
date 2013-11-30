@@ -29,13 +29,11 @@ class Player : public Movable
 
     private:
 
-	#define WALK_VELOCITY              1.5f
 	#define RUNNING_VELOCITY           6 
 	#define RUNNING_ACCELERATION       0.07f 
 	#define STOP_RUNNING_ACCELERATION  (2 * RUNNING_ACCELERATION) 
 
 	#define JUMP_VELOCITY -5 
-	#define GRAVITY       0.14f
 	#define MAX_JUMP_TIME 15
 
 	void allowJump();
@@ -46,7 +44,6 @@ class Player : public Movable
 
 	bool isRunning     = false;
 	bool isJumpPressed = false;
-	bool onGround      = false;
 	bool canJump       = false;
 
 };

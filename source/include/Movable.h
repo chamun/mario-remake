@@ -30,15 +30,19 @@ class Movable
 
 	float getX() { return pos.x; }
 	float getY() { return pos.y; } 
+	sf::Vector2f getPosition() { return pos; } 
 	float getWidth() { return width; }
 	float getHeight() { return height; }
 
 
 	virtual void draw(sf::RenderTarget *target) = 0;
-	virtual void calculateUpdate(float dt) = 0;
-	virtual void setOnTheGround(bool value) = 0;
+	virtual void calculateUpdate(float dt);
+	virtual void setOnTheGround(bool value); 
 
 	protected:
+
+	#define WALK_VELOCITY 1.5f
+	#define GRAVITY       0.14f
 
 	Movable() {}
 
@@ -49,6 +53,7 @@ class Movable
 	float width  = 16;
 
 	float xDirection;
+	bool onGround = false;
 
 };
 

@@ -42,8 +42,6 @@ void Player::allowJump()
 
 void Player::calculateUpdate(float dt)
 {
-	dt = 100 * (1/dt);
-
 	/* X axis */
 	float xVelocity = isRunning ? RUNNING_VELOCITY : WALK_VELOCITY;
 	float xAcceleration;

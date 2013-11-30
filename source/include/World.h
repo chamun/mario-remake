@@ -10,6 +10,7 @@
 #include "Tile.h"
 #include "Collectable.h"
 #include "ActionHandler.h"
+#include "Enemy.h"
 
 class World : ActionHandler {
 
@@ -32,6 +33,7 @@ class World : ActionHandler {
 	Player *player;
 	sf::Sprite *bg;
 	std::vector<Collectable *> collectables;
+	std::vector<Movable *> enemies;
 
 
 	void checkCollisions();

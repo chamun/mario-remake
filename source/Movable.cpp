@@ -44,11 +44,6 @@ void Movable::setMovementRect(sf::Rect<float> &movement)
 
 }
 
-void Movable::setOnTheGround(bool value)
-{	
-	std::cout << "Movable::setOnTheGround " << value << std::endl;		
-}
-
 void Movable::setPosition(float x, float y)
 {
 	pos.x = x;
@@ -59,3 +54,19 @@ void Movable::setXDirection(int direction)
 {
 	xDirection = direction;
 }
+
+void Movable::calculateUpdate(float dt)
+{
+	/* X axis */
+	float xVelocity = WALK_VELOCITY;
+	float xAcceleration = 1;
+
+	float xTargetSpeed  = xVelocity * xDirection;
+	float xNewDirection = signum(xTargetSpeed - currSpeed.x);
+	currSpeed.x += xNewDirection * xAcceleration * dt;
+	if (signum(xTargetSpeed - currSpeed.x) != xNewDirection) currSpeed.x = xTargetSpeed;
+	
+	currSpeed.y += GRAVITY * dt;
+}
+
+void Movable::setOnTheGround(bool value) { onGround = value; }
