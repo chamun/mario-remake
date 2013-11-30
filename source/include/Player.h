@@ -8,54 +8,24 @@
 #ifndef PLAYER_H_
 #define PLAYER_H_
 
-#include <SFML/Graphics/RenderTarget.hpp>
-#include <SFML/System/Vector2.hpp>
+#include "Movable.h"
 
-#define ZERO_THRESHOLD 0.001f
-
-class Player
+class Player : public Movable
 {
     public:
 
-	Player();
+	Player() : Movable() {}
+
+	/* Movable overwrite */
 	void draw(sf::RenderTarget *target);
-
-	void setXDirection(int x);
-
 	void calculateUpdate(float dt);
-	void applyUpdate();
-
 	void setOnTheGround(bool value);
-	void setPosition(float x, float y);
-
-	float getX() { return pos.x; }
-	float getY() { return pos.y; } 
-
-	float getCurrentSpeedX() { return currSpeed.x; }
-	float getCurrentSpeedY() { return currSpeed.y; }
-	float getSpeedDirectionX() { return signum(currSpeed.x); }
-	float getSpeedDirectionY() { return signum(currSpeed.y); }
-
-	void  setCurrentSpeedX(float sx) { currSpeed.x = sx; }
-	void  setCurrentSpeedY(float sy) { currSpeed.y = sy; }
-
-	float getWidth() { return width; }
-	float getHeight() { return height; }
-
-	int signum(float n);
 	
+	/* Own stuff */
 	void setJumpPressed(bool value); 
 	void setRunning(bool value); 
-
-	void setMovementRect(sf::Rect<float> &movement);
-	void getLogicalBox(sf::Rect<float> &movement);
-
 	void grow();
 	void shrink();
-
-	#define PLAYER_H_RIGHT  1
-	#define PLAYER_H_LEFT  -1
-	#define PLAYER_H_NONE   0
 
     private:
 
@@ -70,15 +40,8 @@ class Player
 
 	void allowJump();
 
-	sf::Vector2<float> pos;
-	sf::Vector2<float> currSpeed = sf::Vector2<float>(0, 0);
-
 	const int growSize = 12;
 
-	float height = 16;
-	float width  = 16;
-
-	float xDirection;
 	float jumpTime = MAX_JUMP_TIME;
 
 	bool isRunning     = false;

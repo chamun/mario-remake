@@ -1,8 +1,5 @@
 #include "include/Player.h"
 #include <SFML/Graphics.hpp>
-#include <cmath>
-
-Player::Player() {}
 
 void Player::draw(sf::RenderTarget *target)
 {
@@ -13,17 +10,6 @@ void Player::draw(sf::RenderTarget *target)
 	shape.setPosition(pos);
 
 	target->draw(shape);
-}
-
-void Player::setPosition(float x, float y)
-{
-	pos.x = x;
-	pos.y = y;
-}
-
-void Player::setXDirection(int direction)
-{
-	xDirection = direction;
 }
 
 void Player::setJumpPressed(bool value) { 
@@ -52,11 +38,6 @@ void Player::allowJump()
 {
 	canJump = true;
 	jumpTime = 0;
-}
-
-void Player::applyUpdate()
-{
-	pos += currSpeed;
 }
 
 void Player::calculateUpdate(float dt)
@@ -91,43 +72,6 @@ void Player::calculateUpdate(float dt)
 	}
 
 	currSpeed.y += GRAVITY * dt;
-}
-
-
-int Player::signum(float n)
-{
-       if (n < -ZERO_THRESHOLD)
-               return -1;
-       if (n > ZERO_THRESHOLD)
-               return 1;
-       return 0;
-}
-
-void Player::setMovementRect(sf::Rect<float> &movement)
-{
-	float nx = pos.x + currSpeed.x; 
-	float ny = pos.y + currSpeed.y;
-
-	float left = fmin(pos.x, fmin(nx, fmin(pos.x + width, nx + width)));
-	float right = fmax(pos.x + width, nx + width);
-
-	float top = fmin(pos.y, fmin(ny, fmin(pos.y + height, ny + height)));
-	float bottom = fmax(pos.y + height, ny + height);
-
-	movement.left   = left;
-	movement.width  = fmax(right - left, width);
-
-	movement.top    = top;
-	movement.height = fmax(bottom - top, height);
-
-}
-
-void Player::getLogicalBox(sf::Rect<float> &rect)
-{
-	rect.left = getX();
-	rect.top  = getY();
-	rect.height = getHeight();
-	rect.width  = getWidth();
 }
 
 void Player::grow() 

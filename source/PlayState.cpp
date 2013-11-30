@@ -66,11 +66,11 @@ void PlayState::handleEvents(cgf::Game* game)
 	if(im->testEvent("quit"))
 		game->quit();
 
-	player->setXDirection(PLAYER_H_NONE);
+	player->setXDirection(MOVABLE_H_NONE);
 	if(im->testEvent("left"))
-		player->setXDirection(PLAYER_H_LEFT);
+		player->setXDirection(MOVABLE_H_LEFT);
 	if(im->testEvent("right"))
-		player->setXDirection(PLAYER_H_RIGHT);
+		player->setXDirection(MOVABLE_H_RIGHT);
 
 	player->setJumpPressed(im->testEvent("jump"));
 	player->setRunning(im->testEvent("run"));
