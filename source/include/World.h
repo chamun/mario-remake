@@ -34,7 +34,7 @@ class World : ActionHandler {
 	Player *player;
 	sf::Sprite *bg;
 	std::vector<Collectable *> collectables;
-	std::vector<Movable *> enemies;
+	std::vector<Enemy *> enemies;
 
 	void checkCollisions();
 	void checkMarkers(Movable *actor);
@@ -43,6 +43,7 @@ class World : ActionHandler {
 	Tile* getTile(int row, int col, Layer layer_index);
 	void getTilesOnPath(sf::Rect<float> movement, std::vector<Tile*> &tiles);
 	void checkCollectables();
+	void checkPlayerEnemies();
 
 	void loadCollectables();
 	Collectable* makeCollectable(tmx::MapObject *obj);

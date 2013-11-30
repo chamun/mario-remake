@@ -14,6 +14,8 @@ class Player : public Movable
 {
     public:
 
+	#define JUMP_VELOCITY -5 
+
 	Player() : Movable() {}
 
 	/* Movable overwrite */
@@ -33,7 +35,6 @@ class Player : public Movable
 	#define RUNNING_ACCELERATION       0.07f 
 	#define STOP_RUNNING_ACCELERATION  (2 * RUNNING_ACCELERATION) 
 
-	#define JUMP_VELOCITY -5 
 	#define MAX_JUMP_TIME 15
 
 	void allowJump();

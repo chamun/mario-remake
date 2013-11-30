@@ -115,6 +115,8 @@ void World::checkCollisions()
 		checkMarkers(actor);
 	}
 
+	checkPlayerEnemies();
+
 	/* cleaning up */
 	for (int i = 0; i < tiles.size(); i++)
 		delete tiles[i];
@@ -320,8 +322,38 @@ void World::checkCollectables()
 	}
 
 	for (int i = collectables.size() - 1; i >= 0; i--)
-		if (remove[i])
+		if (remove[i]) {
+			delete collectables[i];
 			collectables.erase(collectables.begin() + i);
+		}
 
 	delete remove;
+}
+
+void World::checkPlayerEnemies()
+{
+	sf::Rect<float> pRect;
+	player->getLogicalBox(pRect);
+	bool *remove = new bool[enemies.size()];
+
+	for (int i = 0; i < enemies.size(); i++) {
+		remove[i] = false;
+		Enemy *enemy = enemies[i];
+		sf::Rect<float> eRect;
+		enemy->getLogicalBox(eRect);
+		if (eRect.intersects(pRect)) {
+			if (player->getCurrentSpeedY() > 0) {
+				remove[i] = true;
+				player->setCurrentSpeedY(JUMP_VELOCITY / 2);
+			} else {
+				std::cout << "checkPlayerEnemies: Kill player" << std::endl;
+			}
+		}
+	}
+
+	for (int i = enemies.size() - 1; i >= 0; i--)
+		if (remove[i]) {
+			delete enemies[i];
+			enemies.erase(enemies.begin() + i);
+		}
 }
