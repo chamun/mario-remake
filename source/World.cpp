@@ -15,7 +15,6 @@
 World::World(Player *player)
 {
 	this->player = player;
-	this->player->setPosition(0, 352);
 
 	map = new tmx::MapLoader("data/maps");
 
@@ -40,10 +39,19 @@ void World::growPlayer()
 	this->player->grow();
 }
 
+void World::restart()
+{
+	collectables.clear();
+	enemies.clear();
+	setMap(level);
+}
+
 void World::setMap(std::string level)
 {
+	this->level = level;
 	map->Load(level);
 	loadCollectables();
+	invencibilityTime = 0;
 
 	srand(time(NULL));	
 	int w = (int) map->GetMapSize().x;
@@ -54,6 +62,8 @@ void World::setMap(std::string level)
 		enemy->setXDirection(MOVABLE_H_RIGHT);
 		enemies.push_back(enemy);
 	}
+
+	this->player->setPosition(0, 352);
 }
 
 void World::cleanup()
@@ -67,6 +77,8 @@ void World::cleanup()
 void World::update(float interval)
 {
 	float dt = 100 * (1/interval);
+
+	invencibilityTime += interval / 60;
 
 	player->calculateUpdate(dt);
 	for(int i = 0; i < enemies.size(); i++)
@@ -345,8 +357,13 @@ void World::checkPlayerEnemies()
 			if (player->getCurrentSpeedY() > 0) {
 				remove[i] = true;
 				player->setCurrentSpeedY(JUMP_VELOCITY / 2);
-			} else {
-				std::cout << "checkPlayerEnemies: Kill player" << std::endl;
+			} else if (invencibilityTime > MAX_INVENCIBILITY_TIME) {
+				if (player->isSmall())
+					restart();
+				else {
+					player->shrink();
+					invencibilityTime  = 0;
+				}
 			}
 		}
 	}

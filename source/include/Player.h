@@ -28,6 +28,7 @@ class Player : public Movable
 	void setRunning(bool value); 
 	void grow();
 	void shrink();
+	bool isSmall() { return height == 16; }
 
     private:
 

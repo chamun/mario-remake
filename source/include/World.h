@@ -30,11 +30,15 @@ class World : ActionHandler {
 	void addCollectable(Collectable *collectable);
 
 	private: 
+	#define MAX_INVENCIBILITY_TIME 5 
+
 	tmx::MapLoader *map;
 	Player *player;
 	sf::Sprite *bg;
 	std::vector<Collectable *> collectables;
 	std::vector<Enemy *> enemies;
+	std::string level;
+	float invencibilityTime;
 
 	void checkCollisions();
 	void checkMarkers(Movable *actor);
@@ -44,6 +48,7 @@ class World : ActionHandler {
 	void getTilesOnPath(sf::Rect<float> movement, std::vector<Tile*> &tiles);
 	void checkCollectables();
 	void checkPlayerEnemies();
+	void restart();
 
 	void loadCollectables();
 	Collectable* makeCollectable(tmx::MapObject *obj);

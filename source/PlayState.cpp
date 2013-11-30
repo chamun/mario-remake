@@ -66,6 +66,7 @@ void PlayState::handleEvents(cgf::Game* game)
 	if(im->testEvent("quit"))
 		game->quit();
 
+
 	player->setXDirection(MOVABLE_H_NONE);
 	if(im->testEvent("left"))
 		player->setXDirection(MOVABLE_H_LEFT);
