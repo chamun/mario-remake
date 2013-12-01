@@ -52,6 +52,8 @@ class World : ActionHandler {
 
 	void loadCollectables();
 	Collectable* makeCollectable(tmx::MapObject *obj);
+	void loadEnemies();
+	Enemy* makeEnemy(tmx::MapObject *obj);
 	
 };
 

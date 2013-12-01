@@ -45,6 +45,7 @@ class Movable
 	#define GRAVITY       0.14f
 
 	Movable() {}
+	Movable(float x, float y) {pos.x = x; pos.y = y;};
 
 	sf::Vector2<float> pos;
 	sf::Vector2<float> currSpeed = sf::Vector2<float>(0, 0);

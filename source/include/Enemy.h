@@ -8,7 +8,11 @@ class Enemy : public Movable
 {
 	public: 
 
-	Enemy () : Movable () {}
+	Enemy (float x, float y, int movement) : Movable (x, y) 
+	{
+		setXDirection(movement);
+	}
+
 	void draw(sf::RenderTarget *target);
 };
 

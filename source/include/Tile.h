@@ -4,7 +4,7 @@
 #ifndef TILE_H_
 #define TILE_H_
 
-enum class Layer { BACKGROUND, ONEWAY, COLLISION, COLLECTABLE, MARKER};
+enum class Layer { BACKGROUND, ONEWAY, COLLISION, COLLECTABLE, MARKER, ENEMIES};
 
 class Tile {
 

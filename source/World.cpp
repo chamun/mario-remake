@@ -51,18 +51,8 @@ void World::setMap(std::string level)
 	this->level = level;
 	map->Load(level);
 	loadCollectables();
+	loadEnemies();
 	invencibilityTime = 0;
-
-	srand(time(NULL));	
-	int w = (int) map->GetMapSize().x;
-	for (int i = 0; i < 5; i++) {
-		float x = rand() % w;
-		Enemy *enemy = new Enemy();
-		enemy->setPosition(x, 10);
-		enemy->setXDirection(MOVABLE_H_RIGHT);
-		enemies.push_back(enemy);
-	}
-
 	this->player->setPosition(0, 352);
 }
 
@@ -269,6 +259,24 @@ void World::loadCollectables()
 
 }
 
+void World::loadEnemies() 
+{
+
+	enemies.clear();
+
+	int index = static_cast<int>(Layer::ENEMIES);
+	tmx::MapLayer& layer = map->GetLayers()[index];
+	std::vector<tmx::MapObject>& objects = layer.objects;
+
+	for (int i = 0; i < objects.size(); i++) {
+		tmx::MapObject *obj = &objects[i];
+		Enemy *e = makeEnemy(obj);
+		if (e != NULL)
+			enemies.push_back(e);
+	}
+
+}
+
 Collectable * World::makeCollectable(tmx::MapObject *obj)
 {
 	std::string type = obj->GetPropertyString("type");
@@ -283,6 +291,22 @@ Collectable * World::makeCollectable(tmx::MapObject *obj)
 		return new RedMushroom(x, y, width, height);
 
 	return NULL;
+}
+
+Enemy * World::makeEnemy(tmx::MapObject *obj)
+{
+	/* Set movement type */
+	int movement = MOVABLE_H_NONE; 
+	std::string type = obj->GetPropertyString("movement");
+	if (type == "left")
+		movement = MOVABLE_H_LEFT;
+	if (type == "right")
+		movement = MOVABLE_H_RIGHT;
+
+	float x = obj->GetPosition().x;
+	float y = obj->GetPosition().y - 16;
+
+	return new Enemy(x, y, movement);
 }
 
 void World::checkMarkers(Movable *actor)
