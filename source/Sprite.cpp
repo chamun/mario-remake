@@ -90,15 +90,11 @@ bool Sprite::loadXML(char xmlFile[])
     pugi::xml_attribute imagepath = atlas.attribute("imagePath");
 
     string attrib = imagepath.as_string();
-    string prefix = "data/img/";
 
     cout << "Sprite::loadSpriteSparrowXML: " << attrib << endl;
+    cout << "TextureAtlas: " << attrib << endl;
 
-    prefix.append(attrib);// = "data/img/"+attrib;
-
-    cout << "TextureAtlas: " << prefix << endl;
-
-    tex = tm->findTexture((char *)prefix.c_str());
+    tex = tm->findTexture((char *)attrib.c_str());
     if(tex == NULL)
         return false;
 
@@ -125,19 +121,7 @@ bool Sprite::loadXML(char xmlFile[])
             << " - " << rect.width << "x" << rect.height << endl;
         frames.push_back(rect);
 
-        //TODO: get spacing and margin
     }
-//        bool ok = loadImage((char *) prefix.c_str());
-//        if(!ok)
-//        {
-//			cout << "ERROR LOADING SPRITE IMG: " << prefix.c_str() << endl;
-//        }
-
-//    xOffset = spriteW/2;
-//    yOffset = spriteH/2;
-
-//    width = spriteW;
-//    height = spriteH;
 
     totalFrames = frames.size();
 

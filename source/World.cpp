@@ -81,6 +81,9 @@ void World::update(float interval)
 	player->applyUpdate();
 	for(int i = 0; i < enemies.size(); i++)
 		enemies[i]->applyUpdate();
+
+	for(int i = 0; i < collectables.size(); i++)
+		collectables[i]->update(interval);
 }
 
 void World::draw(sf::RenderWindow *screen)

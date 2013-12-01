@@ -90,15 +90,15 @@
   <object x="208" y="304" width="16" height="16"/>
   <object x="16" y="304" width="16" height="16"/>
   <object x="272" y="352" width="16" height="16"/>
-  <object x="336" y="288" width="16" height="16"/>
+  <object x="352" y="288" width="16" height="16"/>
   <object x="400" y="304" width="16" height="16"/>
   <object x="464" y="304" width="16" height="16"/>
   <object x="336" y="352" width="16" height="16"/>
  </objectgroup>
- <objectgroup name="Enemies" width="40" height="30" visible="0">
-  <object gid="18" x="32" y="320">
+ <objectgroup name="Enemies" width="40" height="30">
+  <object gid="18" x="176" y="320">
    <properties>
-    <property name="movement" value="right"/>
+    <property name="movement" value="left"/>
    </properties>
   </object>
   <object gid="18" x="256" y="368">

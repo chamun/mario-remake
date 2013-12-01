@@ -47,7 +47,7 @@ Player.o: Player.cpp include/Player.h include/Movable.h
 Tile.o: Tile.cpp include/Tile.h
 	$(CXX) -c Tile.cpp
 
-World.o: World.cpp include/World.h include/Coin.h include/RedMushroom.h
+World.o: World.cpp include/World.h include/Collectable.h include/Coin.h include/RedMushroom.h
 	$(CXX) -c World.cpp
 
 Movable.o: Movable.cpp include/Movable.h
