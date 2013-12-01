@@ -79,8 +79,10 @@ void World::update(float interval)
 
 	/* apply update */
 	player->applyUpdate();
-	for(int i = 0; i < enemies.size(); i++)
+	for(int i = 0; i < enemies.size(); i++) {
 		enemies[i]->applyUpdate();
+		enemies[i]->update(interval);
+	}
 
 	for(int i = 0; i < collectables.size(); i++)
 		collectables[i]->update(interval);

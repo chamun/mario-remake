@@ -6,7 +6,6 @@ CXX= g++-4.7 $(FLAGS)
 OBJS= main.o Game.o Player.o PlayState.o InputManager.o \
       Sprite.o TextureManager.o pugixml.o MapLoaderPrivate.o \
 	  MapLoaderPublic.o QuadTreeNode.o Tile.o World.o Movable.o \
-	  Enemy.o
 
 all : $(OBJS)
 	$(CXX) -o ../bin/game $(OBJS) $(INCLUDES) $(LIBS)
@@ -47,15 +46,12 @@ Player.o: Player.cpp include/Player.h include/Movable.h
 Tile.o: Tile.cpp include/Tile.h
 	$(CXX) -c Tile.cpp
 
-World.o: World.cpp include/World.h include/Collectable.h include/Coin.h include/RedMushroom.h
+World.o: World.cpp include/World.h include/Collectable.h include/Coin.h include/RedMushroom.h \
+         include/Enemy.h
 	$(CXX) -c World.cpp
 
 Movable.o: Movable.cpp include/Movable.h
 	$(CXX) -c Movable.cpp
-
-Enemy.o: Enemy.cpp include/Enemy.h include/Movable.h
-	$(CXX) -c Enemy.cpp
-	
 
 clean:
 	rm -f *.o

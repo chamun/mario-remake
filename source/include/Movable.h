@@ -41,11 +41,12 @@ class Movable
 
 	protected:
 
-	#define WALK_VELOCITY 1.5f
 	#define GRAVITY       0.14f
 
 	Movable() {}
 	Movable(float x, float y) {pos.x = x; pos.y = y;};
+
+	float WALK_VELOCITY = 1.5f;
 
 	sf::Vector2<float> pos;
 	sf::Vector2<float> currSpeed = sf::Vector2<float>(0, 0);
