@@ -28,6 +28,10 @@ World::World(Player *player)
 	}
 	bg = new sf::Sprite(*tex);
 
+	music.openFromFile("data/sounds/theme.ogg");
+	music.setLoop(true);
+	music.setVolume(100);
+
 	coinSoundBuffer.loadFromFile("data/sounds/smw_coin.wav");
 	coinSound.setBuffer(coinSoundBuffer);
 	growSoundBuffer.loadFromFile("data/sounds/smw_power-up.wav");
@@ -62,6 +66,7 @@ void World::restart()
 {
 	collectables.clear();
 	enemies.clear();
+	music.stop();
 	lostLifeSound.play();
 	sleep(3);
 	setMap(level);
@@ -75,6 +80,7 @@ void World::setMap(std::string level)
 	loadEnemies();
 	invencibilityTime = 0;
 	this->player->setPosition(0, 352);
+	music.play();
 }
 
 void World::cleanup()
@@ -120,7 +126,6 @@ void World::update(float interval)
 void World::draw(sf::RenderWindow *screen)
 {
 	screen->draw(*bg);
-	//map->Draw(*screen);
 	map->Draw(*screen, static_cast<int>(Layer::BACKGROUND));
 	map->Draw(*screen, static_cast<int>(Layer::ONEWAY));
 	map->Draw(*screen, static_cast<int>(Layer::COLLISION));

@@ -6,6 +6,7 @@
 
 #include <SFML/Audio/Sound.hpp>
 #include <SFML/Audio/SoundBuffer.hpp>
+#include <SFML/Audio/Music.hpp>
 
 #include "Sprite.h"
 #include "tmxloader/MapLoader.h"
@@ -58,6 +59,8 @@ class World : ActionHandler {
 	Collectable* makeCollectable(tmx::MapObject *obj);
 	void loadEnemies();
 	Enemy* makeEnemy(tmx::MapObject *obj);
+
+	sf::Music music;
 
 	sf::SoundBuffer coinSoundBuffer;
 	sf::Sound coinSound;
