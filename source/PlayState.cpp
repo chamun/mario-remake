@@ -29,12 +29,15 @@ void PlayState::init()
     im->addKeyInput("jump",  sf::Keyboard::K);
     im->addKeyInput("quit",  sf::Keyboard::Escape);
 
+	levels[0] = "first.tmx";
+	levels[1] = "second.tmx";
+
 	/* Creates Player */
 	cout << "---------- Creating player" << endl;
 	player = new Player();
 	cout << "---------- Creating world" << endl;
 	world  = new World(player);
-	world->setMap("simple.tmx");
+	world->setMap(levels[levelIndex]);
 
     cout << "PlayState: Init" << endl;
 }
@@ -68,6 +71,10 @@ void PlayState::handleEvents(cgf::Game* game)
 	if(im->testEvent("quit"))
 		game->quit();
 
+	if (world->isFinished()) {
+		levelIndex = (levelIndex + 1) % 2;
+		world->setMap(levels[levelIndex]);
+	}
 
 	player->setXDirection(MOVABLE_H_NONE);
 	if(im->testEvent("left"))

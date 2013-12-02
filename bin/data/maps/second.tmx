@@ -11,7 +11,7 @@
  </tileset>
  <layer name="background" width="40" height="30">
   <data encoding="base64" compression="zlib">
-   eJzt00EKgDAMRNEutOr9L2w23SXaIiQfmQ+zfwTSmlJK5bbZ9mC90DWi+0YUX3SvLt8nHyXPR/oRus8rsmX7Vn5DvnkfpdXfyL4h3fdUte/tTtU/QveR/tRr5g+q1uX7ve+wndBdthvd/ggf
+   eJzt00EKgDAMRNEuNOr9L2w23TXaIiQfmQ+zfwTSmlJK5bb59mBW6OrRfT2KL7qXyffJR2nkI/0I3TcqsmX7Vn5DvnkfpdXfyL4h3fdUte/tTtU/QvfRm/mDqpl8v/cdvhO6y3cDyz4IGg==
   </data>
  </layer>
  <layer name="oneway" width="40" height="30">
@@ -126,11 +126,6 @@
    </properties>
   </object>
   <object gid="17" x="576" y="224">
-   <properties>
-    <property name="type" value="simpleCoin"/>
-   </properties>
-  </object>
-  <object gid="17" x="717" y="325">
    <properties>
     <property name="type" value="simpleCoin"/>
    </properties>

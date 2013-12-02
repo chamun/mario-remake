@@ -34,6 +34,8 @@ class World : ActionHandler {
 	void addMedallion();
 	void addCollectable(Collectable *collectable);
 
+	bool isFinished() { return end; }
+
 	private: 
 	#define MAX_INVENCIBILITY_TIME 10 
 
@@ -44,6 +46,7 @@ class World : ActionHandler {
 	std::vector<Enemy *> enemies;
 	std::string level;
 	float invencibilityTime;
+	bool end = false;
 
 	void checkCollisions();
 	void checkMarkers(Movable *actor);
@@ -74,6 +77,10 @@ class World : ActionHandler {
 	sf::Sound lostLifeSound;
 	sf::SoundBuffer shrinkSoundBuffer;
 	sf::Sound shrinkSound;
+	sf::SoundBuffer clearSoundBuffer;
+	sf::Sound clearSound;
+	sf::SoundBuffer irisSoundBuffer;
+	sf::Sound irisSound;
 	
 };
 

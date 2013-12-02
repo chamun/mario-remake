@@ -44,6 +44,10 @@ World::World(Player *player)
 	lostLifeSound.setBuffer(lostLifeSoundBuffer);
 	shrinkSoundBuffer.loadFromFile("data/sounds/smw_pipe.wav");
 	shrinkSound.setBuffer(shrinkSoundBuffer);
+	clearSoundBuffer.loadFromFile("data/sounds/smw_course_clear.wav");
+	clearSound.setBuffer(clearSoundBuffer);
+	irisSoundBuffer.loadFromFile("data/sounds/smw_iris.wav");
+	irisSound.setBuffer(irisSoundBuffer);
 }
 
 void World::increaseLife() { std::cout << "World: Increase life" << std::endl;} 
@@ -81,6 +85,7 @@ void World::setMap(std::string level)
 	invencibilityTime = 0;
 	this->player->setPosition(0, 352);
 	music.play();
+	end = false;
 }
 
 void World::cleanup()
@@ -93,6 +98,15 @@ void World::cleanup()
 
 void World::update(float interval)
 {
+	if (collectables.size() == 0) {
+		end = true;
+		music.stop();
+		clearSound.play();
+		sleep(8);
+		irisSound.play();
+		sleep(1);
+		return;
+	}
 	float dt = 100 * (1/interval);
 
 	invencibilityTime += interval / 60;

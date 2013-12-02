@@ -42,6 +42,8 @@ class PlayState : public cgf::GameState
     cgf::InputManager* im;
 	Player* player;
 	World *world;
+	std::string levels[2];
+	int levelIndex = 0;
 };
 
 #endif
