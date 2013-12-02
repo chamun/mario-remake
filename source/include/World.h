@@ -3,6 +3,10 @@
 
 #include <string>
 #include <vector>
+
+#include <SFML/Audio/Sound.hpp>
+#include <SFML/Audio/SoundBuffer.hpp>
+
 #include "Sprite.h"
 #include "tmxloader/MapLoader.h"
 #include "Movable.h"
@@ -54,6 +58,19 @@ class World : ActionHandler {
 	Collectable* makeCollectable(tmx::MapObject *obj);
 	void loadEnemies();
 	Enemy* makeEnemy(tmx::MapObject *obj);
+
+	sf::SoundBuffer coinSoundBuffer;
+	sf::Sound coinSound;
+	sf::SoundBuffer growSoundBuffer;
+	sf::Sound growSound;
+	sf::SoundBuffer jumpSoundBuffer;
+	sf::Sound jumpSound;
+	sf::SoundBuffer stompSoundBuffer;
+	sf::Sound stompSound;
+	sf::SoundBuffer lostLifeSoundBuffer;
+	sf::Sound lostLifeSound;
+	sf::SoundBuffer shrinkSoundBuffer;
+	sf::Sound shrinkSound;
 	
 };
 

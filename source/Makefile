@@ -1,5 +1,5 @@
 INCLUDES= -I/usr/local/include -Iinclude
-LIBS= -L/usr/local/lib -lsfml-graphics -lsfml-window -lsfml-system
+LIBS= -L/usr/local/lib -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 FLAGS= -std=c++11 -g
 CXX= g++-4.7 $(FLAGS)
 

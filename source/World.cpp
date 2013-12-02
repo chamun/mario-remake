@@ -1,6 +1,7 @@
 #include <cfloat>
 #include <cstdlib>
 #include <ctime>
+#include <unistd.h>
 
 #include "include/World.h"
 #include "include/TextureManager.h"
@@ -26,23 +27,43 @@ World::World(Player *player)
 		exit(EXIT_FAILURE);
 	}
 	bg = new sf::Sprite(*tex);
+
+	coinSoundBuffer.loadFromFile("data/sounds/smw_coin.wav");
+	coinSound.setBuffer(coinSoundBuffer);
+	growSoundBuffer.loadFromFile("data/sounds/smw_power-up.wav");
+	growSound.setBuffer(growSoundBuffer);
+	stompSoundBuffer.loadFromFile("data/sounds/smw_stomp.wav");
+	stompSound.setBuffer(stompSoundBuffer);
+	jumpSoundBuffer.loadFromFile("data/sounds/smw_jump.wav");
+	jumpSound.setBuffer(jumpSoundBuffer);
+	lostLifeSoundBuffer.loadFromFile("data/sounds/smw_lost_a_life.wav");
+	lostLifeSound.setBuffer(lostLifeSoundBuffer);
+	shrinkSoundBuffer.loadFromFile("data/sounds/smw_pipe.wav");
+	shrinkSound.setBuffer(shrinkSoundBuffer);
 }
 
 void World::increaseLife() { std::cout << "World: Increase life" << std::endl;} 
-void World::addCoin()      { std::cout << "World: Add coin" << std::endl;} 
 void World::addMedallion() { std::cout << "World: Add Medallion" << std::endl;} 
 void World::addCollectable(Collectable *collectable) { std::cout << "World: Add collectable" << std::endl;} 
+
+void World::addCoin()      
+{ 
+	coinSound.play();
+} 
 
 void World::growPlayer()  
 { 
 	std::cout << "World: Grow player" << std::endl;
 	this->player->grow();
+	growSound.play();
 }
 
 void World::restart()
 {
 	collectables.clear();
 	enemies.clear();
+	lostLifeSound.play();
+	sleep(3);
 	setMap(level);
 }
 
@@ -394,12 +415,14 @@ void World::checkPlayerEnemies()
 			if (player->getCurrentSpeedY() > 0) {
 				remove[i] = true;
 				player->setCurrentSpeedY(JUMP_VELOCITY / 2);
+				stompSound.play();
 			} else if (invencibilityTime > MAX_INVENCIBILITY_TIME) {
 				if (player->isSmall())
 					restart();
 				else {
 					player->shrink();
 					invencibilityTime  = 0;
+					shrinkSound.play();
 				}
 			}
 		}
