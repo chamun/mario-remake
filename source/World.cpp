@@ -86,6 +86,7 @@ void World::update(float interval)
 
 	for(int i = 0; i < collectables.size(); i++)
 		collectables[i]->update(interval);
+	player->updateSprite(interval);
 }
 
 void World::draw(sf::RenderWindow *screen)

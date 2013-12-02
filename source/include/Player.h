@@ -8,15 +8,16 @@
 #ifndef PLAYER_H_
 #define PLAYER_H_
 
+#include <iostream>
 #include "Movable.h"
+#include "Sprite.h"
 
 class Player : public Movable
 {
     public:
 
 	#define JUMP_VELOCITY -5 
-
-	Player() : Movable() {}
+	Player();
 
 	/* Movable overwrite */
 	void draw(sf::RenderTarget *target);
@@ -30,6 +31,9 @@ class Player : public Movable
 	void shrink();
 	bool isSmall() { return height == 16; }
 
+	void setXDirection(int direction);
+	void updateSprite(float interval) { sprite->update(interval); }
+
     private:
 
 	#define RUNNING_VELOCITY           6 
@@ -41,12 +45,17 @@ class Player : public Movable
 	void allowJump();
 
 	const int growSize = 12;
+	int spriteCorrection = 6;
 
 	float jumpTime = MAX_JUMP_TIME;
 
 	bool isRunning     = false;
 	bool isJumpPressed = false;
 	bool canJump       = false;
+
+	cgf::Sprite *sprite;
+	cgf::Sprite smallSprite;
+	cgf::Sprite bigSprite;
 
 };
 

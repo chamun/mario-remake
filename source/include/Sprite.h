@@ -42,7 +42,7 @@ public:
     bool isVisible() { return visible; }
 
     // Mirroring (X-axis)
-    void setMirror(bool mirror) { this->mirror = mirror; }
+	void setMirror(bool mirror);
     bool getMirror() { return mirror; }
 
     // Sprite speed
@@ -108,6 +108,8 @@ private:
     bool loadMultiImage(char nomeArq[], int w, int h, int hSpace, int vSpace, int xIni, int yIni, int column, int row, int total);
 
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+
+	void updateGraphics();
 };
 
 } // namespace cgf

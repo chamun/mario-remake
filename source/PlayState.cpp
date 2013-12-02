@@ -30,7 +30,9 @@ void PlayState::init()
     im->addKeyInput("quit",  sf::Keyboard::Escape);
 
 	/* Creates Player */
+	cout << "---------- Creating player" << endl;
 	player = new Player();
+	cout << "---------- Creating world" << endl;
 	world  = new World(player);
 	world->setMap("simple.tmx");
 

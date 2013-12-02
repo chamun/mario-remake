@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
+<!-- $TexturePacker:SmartUpdate:cb1e157cf227dc8106f2247062afd89f$ -->
+<!--Format:
+n  => name of the sprite
+x  => sprite x pos in texture
+y  => sprite y pos in texture
+w  => sprite width (may be trimmed)
+h  => sprite height (may be trimmed)
+oX => sprite's x-corner offset (only available if trimmed)
+oY => sprite's y-corner offset (only available if trimmed)
+oW => sprite's original width (only available if trimmed)
+oH => sprite's original height (only available if trimmed)
+r => 'y' only set if sprite is rotated
+-->
+<TextureAtlas imagePath="data/imgs/big_mario.png" width="220" height="31">
+    <sprite n="mario0.png" x="0" y="0" w="21" h="31"/>
+    <sprite n="mario1.png" x="22" y="0" w="21" h="31"/>
+    <sprite n="mario2.png" x="44" y="0" w="21" h="31"/>
+    <sprite n="mario3.png" x="66" y="0" w="21" h="31"/>
+    <sprite n="mario4.png" x="88" y="0" w="21" h="31"/>
+    <sprite n="mario5.png" x="110" y="0" w="21" h="31"/>
+    <sprite n="mario6.png" x="132" y="0" w="21" h="31"/>
+    <sprite n="mario7.png" x="154" y="0" w="21" h="31"/>
+    <sprite n="mario8.png" x="176" y="0" w="21" h="31"/>
+    <sprite n="mario9.png" x="198" y="0" w="21" h="31"/>
+</TextureAtlas>

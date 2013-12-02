@@ -30,7 +30,7 @@ class World : ActionHandler {
 	void addCollectable(Collectable *collectable);
 
 	private: 
-	#define MAX_INVENCIBILITY_TIME 5 
+	#define MAX_INVENCIBILITY_TIME 10 
 
 	tmx::MapLoader *map;
 	Player *player;

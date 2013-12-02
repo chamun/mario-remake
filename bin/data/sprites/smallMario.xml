@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TextureAtlas imagePath="data/imgs/small_mario.png" width="128" height="22">
+    <sprite n="0" x="16" y="0" w="16" h="22"/>
+    <sprite n="1" x="0" y="0" w="16" h="22"/>
+    <sprite n="2" x="32" y="0" w="16" h="22"/>
+    <sprite n="3" x="48" y="0" w="16" h="22"/>
+    <sprite n="4" x="64" y="0" w="16" h="22"/>
+    <sprite n="5" x="80"   y="0" w="16" h="22"/>
+    <sprite n="6" x="96"   y="0" w="16" h="22"/>
+    <sprite n="7" x="112" y="0" w="16" h="22"/>
+</TextureAtlas>

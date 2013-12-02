@@ -26,7 +26,7 @@ class Movable
 	void setCurrentSpeedY(float sy) { currSpeed.y = sy; }
 	void setMovementRect(sf::Rect<float> &movement);
 	void setPosition(float x, float y);
-	void setXDirection(int x);
+	virtual void setXDirection(int x);
 
 	float getX() { return pos.x; }
 	float getY() { return pos.y; } 

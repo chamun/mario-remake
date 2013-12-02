@@ -222,6 +222,8 @@ void Sprite::setAnimation(string name)
     auto seq = anims.find(name);
     if(seq == anims.end())
         return;
+	if (name == animName)
+		return;
 
     currentAnim = &seq->second;
     setFrameRange(currentAnim->frameStart, currentAnim->frameEnd);
@@ -280,6 +282,11 @@ void Sprite::setCurrentFrame(int c)
 		curframe = 0;
     curFrameD = curframe;
 
+	updateGraphics();
+}
+
+void Sprite::updateGraphics()
+{
     //sf::IntRect rect = m_animation->getFrame(m_currentFrame);
     sf::IntRect rect = frames[curframe];
 
@@ -355,6 +362,7 @@ void Sprite::setAnimRate(int fdelay)
 // animacao do sprite.
 void Sprite::update(double deltaTime)
 {
+	updateGraphics(); 
     // Move sprite according to its speed and the amount of time that has passed
     sf::Vector2f offset(xspeed/1000 * deltaTime, yspeed/1000 * deltaTime);
     move(offset);
@@ -370,6 +378,11 @@ void Sprite::update(double deltaTime)
         if(curframe != lastf)
             setCurrentFrame(curframe);
     }
+}
+
+void Sprite::setMirror(bool mirror) 
+{ 
+	this->mirror = mirror; 
 }
 
 // Check bounding box collision between this and other sprite

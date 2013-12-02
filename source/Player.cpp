@@ -1,15 +1,22 @@
 #include "include/Player.h"
 #include <SFML/Graphics.hpp>
 
+Player::Player() : Movable()
+{
+	std::cout << "In Player's Constructor"<< std::endl;
+	smallSprite.loadXML((char *) "data/sprites/smallMario.xml");
+	smallSprite.loadAnimation((char *) "data/sprites/smallMarioAnimation.xml");
+	bigSprite.loadXML((char *) "data/sprites/bigMario.xml");
+	bigSprite.loadAnimation((char *) "data/sprites/bigMarioAnimation.xml");
+	sprite = &smallSprite;
+	sprite->setAnimRate(4);
+}
+
+
 void Player::draw(sf::RenderTarget *target)
 {
-	sf::RectangleShape shape(sf::Vector2<float>(width, height));
-	shape.setFillColor(sf::Color(0xEA, 0xC5, 0xEA, 0xFF));
-	shape.setOutlineColor(sf::Color(0xFF, 0x99, 0xFF, 0xFF));
-	shape.setOutlineThickness(1);
-	shape.setPosition(pos);
-
-	target->draw(shape);
+	sprite->setPosition(pos.x, pos.y - spriteCorrection);
+	target->draw(*sprite);
 }
 
 void Player::setJumpPressed(bool value) { 
@@ -70,16 +77,59 @@ void Player::calculateUpdate(float dt)
 	}
 
 	currSpeed.y += GRAVITY * dt;
+
+	/* Sprite update */
+	std::string animation = sprite->getAnimation();
+	bool runSpeed = fabs(currSpeed.x) > RUNNING_VELOCITY / 2;
+
+	if (currSpeed.x != 0) {
+		animation = "walk";
+		sprite->setAnimRate(4);
+		if (runSpeed) {
+			animation = "run";
+			sprite->setAnimRate(8);
+		}
+		if (signum(currSpeed.x) != signum(xDirection))
+			animation = "slide";
+	} else {
+		animation = "standing";
+	}
+
+	if (currSpeed.y < 0)
+		animation = "jump";
+	if (currSpeed.y > 0 && !onGround)
+		animation = "fall";
+	if (!onGround && runSpeed)
+		animation = "jump-running";
+
+	sprite->setAnimation(animation);
+	sprite->play();
 }
 
 void Player::grow() 
 {
+	if (!isSmall())
+		return;
 	pos.y -= growSize;
 	height += growSize;
+	sprite = &bigSprite;
+	spriteCorrection = 3;
 }
 
 void Player::shrink()
 {
 	pos.y  += growSize;
 	height -= growSize;
+	sprite = &smallSprite;
+	spriteCorrection = 6;
+}
+
+void Player::setXDirection(int direction)
+{
+	xDirection = direction;
+	if (direction == MOVABLE_H_RIGHT)
+		sprite->setMirror(false);
+	if (direction == MOVABLE_H_LEFT)
+		sprite->setMirror(true);
+	sprite->play();
 }
