@@ -79,6 +79,13 @@ void World::update(float interval)
 
 	/* apply update */
 	player->applyUpdate();
+
+	/* check map bounds */
+	if (player->getX() < 0)
+		player->setPosition(0, player->getY());
+	if (player->getX() + player->getWidth() > map->GetMapSize().x)
+		player->setPosition(map->GetMapSize().x - player->getWidth(), player->getY());
+
 	for(int i = 0; i < enemies.size(); i++) {
 		enemies[i]->applyUpdate();
 		enemies[i]->update(interval);
