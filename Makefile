@@ -1,5 +1,5 @@
-INCLUDES= -I/usr/local/include -Iinclude
-LIBS= -L/usr/local/lib -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
+INCLUDES= -Iinclude
+LIBS= -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -lz
 FLAGS= -std=c++11 -g
 CXX= g++-4.7 $(FLAGS)
 
@@ -8,7 +8,7 @@ OBJS= main.o Game.o Player.o PlayState.o InputManager.o \
 	  MapLoaderPublic.o QuadTreeNode.o Tile.o World.o Movable.o \
 
 all : $(OBJS)
-	$(CXX) -o ../bin/game $(OBJS) $(INCLUDES) $(LIBS)
+	$(CXX) -o game $(OBJS) $(INCLUDES) $(LIBS)
 
 main.o : main.cpp
 	$(CXX) -c main.cpp

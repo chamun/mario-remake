@@ -1,4 +1,4 @@
-bin/game
+game
 *.o
 source/tags
 *.swp
