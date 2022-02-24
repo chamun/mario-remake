@@ -1,3 +1,4 @@
+#include <math.h>
 #include "include/Player.h"
 #include <SFML/Graphics.hpp>
 
