@@ -1,7 +1,7 @@
 INCLUDES= -Iinclude
 LIBS= -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -lz
 FLAGS= -std=c++11 -g
-CXX= g++-4.7 $(FLAGS)
+CXX= g++ $(FLAGS)
 
 OBJS= main.o Game.o Player.o PlayState.o InputManager.o \
       Sprite.o TextureManager.o pugixml.o MapLoaderPrivate.o \
