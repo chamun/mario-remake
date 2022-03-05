@@ -52,4 +52,8 @@ To run the game you just need to run:
 It will start a container and hook it up with the host's X window system and
 sound.
 
+Controls:
+  - Move left and right: A and D
+  - Run and jump: J and K
+
 Enjoy!
