@@ -1,0 +1,8 @@
+#!/bin/bash
+
+docker run --rm -ti   \
+  --net=host          \
+  --device /dev/snd   \
+  -e DISPLAY=$DISPLAY \
+  -v $HOME/.Xauthority:/root/.Xauthority \
+  mario-remake
