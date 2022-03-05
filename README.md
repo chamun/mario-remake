@@ -47,7 +47,7 @@ clean it up later.
 
 To run the game you just need to run:
 
-   bin/run
+    bin/run
 
 It will start a container and hook it up with the host's X window system and
 sound.
