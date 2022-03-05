@@ -18,7 +18,7 @@ int main(int argc, char **argv)
 {
     cgf::Game game(5,30);
 
-	game.init("Framework com estados, sprites e tiling",640,480,false);
+	game.init("mario-remake",640,480,false);
 
     //game.changeState(MenuState::instance());
     game.changeState(PlayState::instance());
