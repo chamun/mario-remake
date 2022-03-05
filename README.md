@@ -1,35 +1,55 @@
 About
 -----
 
-This project is the final work for the Digital Entertainment class at PUCRS
-university.
+This repository contains the final project of the Digital Entertainment class
+taken at PUCRS university in 2013.
 
-These instructions are for an Ubuntu 14.10 system.
+In this class the students learned how to make video-games and the final project
+consisted in applying the acquired knowledge to develop a remake of a known
+game.
 
-Dependencies
--------------
+The games should be developed using the [SFML](https://www.sfml-dev.org) library
+and the maps should be designed using the [Tiled](https://www.mapeditor.org/)
+map editor.
 
-### g++-4.7
+I chose to remake Super Mario World. The physics in this game was completely
+written by me.
 
-    $ sudo apt-get install g++-4.7
+In 2015 I couldn't compile the project anymore. I can't remember why, but it had
+something to do with an update in Ubuntu. I was able to fix it somehow.
 
-### SFML
+It comes with no surprises that in 2022 I couldn't compile the project anymore.
+I couldn't even remember which libraries were required to do so.
 
-    $ sudo apt-get install libsfml-dev
+I'm very proud of the outcome of this project and for some reason I never
+published it. I decided to take the effort of fixing it one more time. This
+time, inside Docker.
 
-### tmxloader
+I chose Docker for 3 reasons:
 
-    This lib is included in the source code.
+  - Make the instalation self contained and isolated
+  - Make it easy for other people to try the project out
+  - Hopefuly being able to easily compile the project in the future
 
-    https://github.com/fallahn/sfml-tmxloader
+The instructions to build and run the project are specific to Linux systems as
+it uses the X window system's forwarding feature to run the game inside Docker
+using the host's display.
 
-### Zlib
+First you'll need to build the game image:
 
-    Needed for tmxloader.
+    bin/build
 
-    $ sudo apt-get install zlib1g-dev
+This process will download all the dependencies that are necessary to compile
+and run the game, including the dependencies that are necessary to compile SFML
+2.0, which was the version the game was built upon. The final size of the image
+is around 520MB. Everything is done inside Docker, so you don't need to worry to
+clean it up later.
 
-How to compile
---------------
+To run the game you just need to run:
 
-  $ make
+   bin/run
+
+It will start a container and hook it up with the host's X window system and
+sound.
+
+Enjoy!

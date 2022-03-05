@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<TextureAtlas imagePath="data/imgs/enemy.png" width="16" height="32">
-    <sprite n="data/imgs/enemy0.png" x="0" y="0" w="16" h="16"/>
-    <sprite n="data/imgs/enemy1.png" x="0" y="16" w="16" h="16"/>
-</TextureAtlas>
