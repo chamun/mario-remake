@@ -1,5 +1,4 @@
-About
------
+## About
 
 This repository contains the final project of the Digital Entertainment class
 taken at PUCRS university in 2013.
@@ -27,9 +26,9 @@ time, inside Docker.
 
 I chose Docker for 3 reasons:
 
-  - Make the instalation self contained and isolated
-  - Make it easy for other people to try the project out
-  - Hopefuly being able to easily compile the project in the future
+- Make the instalation self contained and isolated
+- Make it easy for other people to try the project out
+- Hopefuly being able to easily compile the project in the future
 
 The instructions to build and run the project are specific to Linux systems as
 it uses the X window system's forwarding feature to run the game inside Docker
@@ -52,8 +51,21 @@ To run the game you just need to run:
 It will start a container and hook it up with the host's X window system and
 sound.
 
+ℹ️ Instructions for MACOS users
+
+- Install [XQuartz](https://www.xquartz.org/)
+- Enable IGLX for XQuartz
+
+        defaults write org.xquartz.X11 enable_iglx -bool YES
+
+- Start XQuartz
+- Run the game with:
+
+        ./bin/run-macos
+
 Controls:
-  - Move left and right: A and D
-  - Run and jump: J and K
+
+- Move left and right: A and D
+- Run and jump: J and K
 
 Enjoy!
