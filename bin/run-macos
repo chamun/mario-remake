@@ -1,0 +1,8 @@
+#!/bin/bash
+
+IP=`ipconfig getifaddr en0`
+
+docker run --rm -ti                      \
+  -e DISPLAY=$IP:0                       \
+  -v $HOME/.Xauthority:/root/.Xauthority \
+  mario-remake
