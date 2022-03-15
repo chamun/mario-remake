@@ -2,9 +2,7 @@
 
 IP=`ipconfig getifaddr en0`
 
-docker run --rm -ti   \
-  --net=host          \
-  --device /dev/null:/dev/snd   \
-  -e DISPLAY=$IP:0 \
+docker run --rm -ti                      \
+  -e DISPLAY=$IP:0                       \
   -v $HOME/.Xauthority:/root/.Xauthority \
   mario-remake
