@@ -1,4 +1,4 @@
-## About
+# About
 
 This repository contains the final project of the Digital Entertainment class
 taken at PUCRS university in 2013.
@@ -30,11 +30,13 @@ I chose Docker for 3 reasons:
 - Make it easy for other people to try the project out
 - Hopefuly being able to easily compile the project in the future
 
-The instructions to build and run the project are specific to Linux systems as
-it uses the X window system's forwarding feature to run the game inside Docker
-using the host's display.
+To run the game inside docker, it is necessary that the host system has a
+version of the X Window System installed as the container will use X's
+forwarding feature to render the game in the host.
 
-First you'll need to build the game image:
+The instructions bellow describe how to run the game for Linux and macOS.
+
+For both OS's you'll first need to build the game image:
 
     bin/build
 
@@ -44,26 +46,32 @@ and run the game, including the dependencies that are necessary to compile SFML
 is around 520MB. Everything is done inside Docker, so you don't need to worry to
 clean it up later.
 
-To run the game you just need to run:
+## Instructions for Linux users
+
+After the image is built, just run:
 
     bin/run
 
 It will start a container and hook it up with the host's X window system and
 sound.
 
-ℹ️ Instructions for MACOS users
+## Instructions for macOS users
 
-- Install [XQuartz](https://www.xquartz.org/)
-- Enable IGLX for XQuartz
+For macOS users, a bit more work is required and sound is not supported.
 
-        defaults write org.xquartz.X11 enable_iglx -bool YES
+Install [XQuartz](https://www.xquartz.org/) and re-start your machine
 
-- Start XQuartz
-- Run the game with:
+    brew install xquartz
 
-        ./bin/run-macos
+Enable IGLX for XQuartz
 
-Controls:
+    defaults write org.xquartz.X11 enable_iglx -bool YES
+
+Start XQuartz and run the game with:
+
+    ./bin/run-macos
+
+## Controls:
 
 - Move left and right: A and D
 - Run and jump: J and K
