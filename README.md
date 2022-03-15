@@ -26,9 +26,9 @@ time, inside Docker.
 
 I chose Docker for 3 reasons:
 
-- Make the instalation self contained and isolated
+- Make the installation self contained and isolated
 - Make it easy for other people to try the project out
-- Hopefuly being able to easily compile the project in the future
+- Hopefully being able to easily compile the project in the future
 
 To run the game inside docker, it is necessary that the host system has a
 version of the X Window System installed as the container will use X's
